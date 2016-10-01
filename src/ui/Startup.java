@@ -1,22 +1,19 @@
 package ui;
 
+import core.AdvNum;
 import core.Equation;
+import core.EquationCalculator;
+import core.EquationCalculator.EquationCondition;
+import core.EquationCalculator.EquationConditionMass;
 
 public class Startup {
 	public static void main(String[] args) throws Exception {
-		// TODO: 真正的化学计算
-		Equation a = new Equation("CO2 + H2O --> H2CO3");
-		System.out.println(a.reactant);
-		System.out.println(a.product);
-		System.out.print(a.checkBalance());
+		// 已实现界面与实现分离
+		// 进一步计划中
+		Equation aa = new Equation("2H2 + O2 ---> 2H2O");
+		EquationCalculator calc = new EquationCalculator(aa);
+		EquationCondition condition = new EquationConditionMass(aa.reactant.get(0), new AdvNum(25.0));
 		
-//		
-//		Formula a = new Formula("Cu2(OH)2CO3");
-//		System.out.println(a.getRawString());
-//		System.out.print(a.mapAtomList);
-//		
-//		RMDatabase db = new RMDatabase();
-//		AdvNum rm = db.queryMolarMass(a);
-//		System.out.println("\nRM: " + rm.getValue());
+		System.out.println(calc.calcMass(condition, aa.product.get(0)));
 	}
 }
