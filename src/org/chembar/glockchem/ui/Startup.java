@@ -1,10 +1,8 @@
-package ui;
+package org.chembar.glockchem.ui;
 
-import core.AdvNum;
-import core.Equation;
-import core.EquationCalculator;
-import core.EquationCalculator.EquationCondition;
-import core.EquationCalculator.EquationConditionMass;
+import org.chembar.glockchem.core.*;
+import org.chembar.glockchem.core.EquationCalculator.EquationCondition;
+import org.chembar.glockchem.core.EquationCalculator.EquationConditionMass;
 
 public class Startup {
 	public static void main(String[] args) throws Exception {

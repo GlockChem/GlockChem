@@ -1,4 +1,4 @@
-package core;
+package org.chembar.glockchem.core;
 
 /** Pair
  * @author DuckSoft

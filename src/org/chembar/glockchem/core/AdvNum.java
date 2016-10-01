@@ -1,4 +1,4 @@
-package core;
+package org.chembar.glockchem.core;
 
 /** AdvNum - 带误差计算的双精度类型
  * @author DuckSoft

@@ -1,4 +1,4 @@
-package core;
+package org.chembar.glockchem.core;
 
 import java.util.HashMap;
 import java.util.Map;

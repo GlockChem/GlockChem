@@ -1,6 +1,6 @@
-package core;
+package org.chembar.glockchem.core;
 
-import core.RMDatabase.AtomNameNotFoundException;
+import org.chembar.glockchem.core.RMDatabase.AtomNameNotFoundException;
 
 /** 化学方程式计算类
  * <p>用作化学方程式的简单比值计算</p>
