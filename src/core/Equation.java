@@ -5,20 +5,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/** 化学方程式抽象
+ * @author DuckSoft
+ */
 public class Equation {
-	// 化学方程式抽象
+	/** 反应物列表*/
 	public List<Pair<Formula,Integer>> reactant = new ArrayList<Pair<Formula,Integer>>();
+	/** 生成物列表*/
 	public List<Pair<Formula,Integer>> product = new ArrayList<Pair<Formula,Integer>>();
 	
-	public Equation() {
-		
-	}
-	
+	/** 以给定的含有有效格式的化学方程式字符串生成一个Equation对象。<br/>
+	 * <p>可接受的格式示例如下：
+	 * <li>2C + O2 = 2CO</li>
+	 * <li>2C + O2 -> 2CO</li>
+	 * <li>2C + O2 === 2CO</li>
+	 * <li>2C + O2 ==> 2CO</li>
+	 * </p>
+	*/
 	public Equation(String strEquation) throws Exception {
 		this.parseEquation(strEquation);
 	}
 	
-
+	/** 检查方程式是否平衡
+	 * <p>遍历方程式内{@link Formula}内的原子个数表，以验证方程式是否平衡。<br>
+	 * 若平衡，则返回{@code true}；若否，则返回{@code false}。</p>
+	 * @return 方程式是否平衡
+	 */
 	public boolean checkBalance() {
 		Map<String,Integer> atomReactant = new HashMap<String,Integer>();
 		Map<String,Integer> atomProduct = new HashMap<String,Integer>();
@@ -30,9 +42,8 @@ public class Equation {
 					numTodo = atomReactant.get(entry.getKey());
 				} catch(Exception e) {
 					
-				} finally {
-					atomReactant.put(entry.getKey(),entry.getValue() + numTodo);
 				}
+				atomReactant.put(entry.getKey(),entry.getValue() * pair.getR() + numTodo);
 			}
 		}
 		
@@ -40,15 +51,17 @@ public class Equation {
 			for (Map.Entry<String,Integer> entry : pair.getL().mapAtomList.entrySet()) {
 				int numTodo = 0;
 				try {
+//					System.out.println(pair.getR());
 					numTodo = atomProduct.get(entry.getKey());
 				} catch(Exception e) {
-					
-				} finally {
-					atomProduct.put(entry.getKey(),entry.getValue() + numTodo);
+				
 				}
+				atomProduct.put(entry.getKey(),entry.getValue() * pair.getR() + numTodo);
 			}
 		}
 		
+//		System.out.print(atomReactant);
+//		System.out.print(atomProduct);
 		for (Map.Entry<String,Integer> entry : atomReactant.entrySet()) {
 			if (atomProduct.containsKey(entry.getKey())) {
 				if (atomProduct.get(entry.getKey()) == entry.getValue()) {
@@ -64,12 +77,22 @@ public class Equation {
 		return true;
 	}
 	
-	public void parseEquation(String strEquation) throws Exception {// 分析方程式并打散成两个列表
+	
+	/** 分析方程式
+	 * @param strEquation 欲分析的方程式
+	 * @throws Exception
+	 */
+	public void parseEquation(String strEquation) throws Exception {
+		// 不可重复分析
+		assert((this.reactant.isEmpty() && this.product.isEmpty()));
+		
 		// 避免输入为空
 		if (strEquation.isEmpty()) {
 			//TODO: 输入为空的处理
 			throw new Exception("输入为空");
 		}
+		
+		// 避免重复分析
 		
 		String partLeft = "";		// 反应物、生成物缓冲区
 		String partRight = "";
@@ -102,7 +125,7 @@ public class Equation {
 		if (partLeft.isEmpty() || partRight.isEmpty()) {
 			throw new Exception("所输入的反应物或生成物为空");
 		}
-		
+
 		boolean isStarting = true;	// 标志：是否是化学式的开头
 		String strTempA = "";			// 系数存储
 		String strTempB = "";			// 化学式存储
@@ -110,7 +133,7 @@ public class Equation {
 		for (char i : partLeft.toCharArray()) {
 			if (isStarting == true) {	// 若为化学式的开头 
 				if (('0' <= i) && (i <= '9')) { // 判定是否为数字 
-					strTempA += i;				// 若为数字系数则加入到系数暂存器 
+					strTempA += String.valueOf(i);				// 若为数字系数则加入到系数暂存器 
 				} else {
 					isStarting = false;	// 若非则表示数字部分结束
 					
@@ -122,7 +145,7 @@ public class Equation {
 						throw new Exception("列表开头遇到空白项");
 					} 
 					
-					strTempB += i;	// 将本个字符塞入化学式存储器 
+					strTempB += String.valueOf(i);	// 将本个字符塞入化学式存储器 
 				}
 			} else {	// 若非化学式的开头 
 				if (i == '+') {	// 若为"+"号 
@@ -136,7 +159,7 @@ public class Equation {
 						isStarting = true;
 					}
 				} else {		// 若非"+"号 
-					strTempB += i;	// 直接加入化学式缓冲 
+					strTempB += String.valueOf(i);	// 直接加入化学式缓冲 
 				}
 			}
 		}
@@ -150,12 +173,14 @@ public class Equation {
 			isStarting = true;
 		}
 		
-		
+		strTempA = "";
+		strTempB = "";
+		isStarting = true;
 		
 		for (char i : partRight.toCharArray()) {
 			if (isStarting == true) {	// 若为化学式的开头 
 				if (('0' <= i) && (i <= '9')) { // 判定是否为数字 
-					strTempA += i;				// 若为数字系数则加入到系数暂存器 
+					strTempA += String.valueOf(i);				// 若为数字系数则加入到系数暂存器 
 				} else {
 					isStarting = false;	// 若非则表示数字部分结束
 					
@@ -167,28 +192,28 @@ public class Equation {
 						throw new Exception("列表开头遇到空白项");
 					} 
 					
-					strTempB += i;	// 将本个字符塞入化学式存储器 
+					strTempB += String.valueOf(i);	// 将本个字符塞入化学式存储器 
 				}
 			} else {	// 若非化学式的开头 
 				if (i == '+') {	// 若为"+"号 
 					if (strTempB.isEmpty() || strTempA.isEmpty()) { // 防止化学式或系数为空时加入列表
 						throw new Exception("Equation::parseFormulaList: 列表内遇到空白项");
 					} else {
-						this.product.add(new Pair<Formula,Integer>(new Formula(strTempB),Integer.valueOf(strTempA)));
+						this.product.add(new Pair<Formula,Integer>(new Formula(strTempB),new Integer(strTempA)));
 						// 初始化状态 
 						strTempA = "";
 						strTempB = "";
 						isStarting = true;
 					}
 				} else {		// 若非"+"号 
-					strTempB += i;	// 直接加入化学式缓冲 
+					strTempB += String.valueOf(i);	// 直接加入化学式缓冲 
 				}
 			}
 		}
 		
 		// 循环后处理
 		if (!(strTempA.isEmpty() || strTempB.isEmpty())) {
-			this.product.add(new Pair<Formula,Integer>(new Formula(strTempB),Integer.valueOf(strTempA)));
+			this.product.add(new Pair<Formula,Integer>(new Formula(strTempB),new Integer(strTempA)));
 			// 初始化状态 
 			strTempA = "";
 			strTempB = "";
