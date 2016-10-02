@@ -67,20 +67,20 @@ public class EquationBalancer {
 	
 	/** 高斯消元法配平方程式
 	 * <p>使用高斯消元法配平Equation。<br>
-	 * 成功则返回已配平的{@code Equation}，否则返回{@code null}。</p>
-	 * @return 配平结果
+	 * 成功则返回true，失败则返回false。
+	 * @return 配平是否成功
 	 * @author EAirPeter - 高斯消元算法
 	 * @author LionNatsu - 重要思维提示
 	 * @author DuckSoft - 周边整合
 	 */
-	public Equation balanceGaussian() {
+	public boolean balanceGaussian() {
 		// 获取反应物和生成物的数量
 		int numReactant = this.equInner.reactant.size();
 		int numProduct = this.equInner.product.size();
 		
 		// 尼玛空的方程式配个屁啊
 		if ((numReactant == 0) || (numProduct == 0)) {
-			return null;
+			return false;
 		}
 		
 		// 得到行数与列数，用作以后建立矩阵
@@ -126,7 +126,7 @@ public class EquationBalancer {
 			col++;
 		}
 		
-		System.out.println(mat);
+//		System.out.println(mat);
 		
 		// 高斯消元
 		// Author: EAirPeter
@@ -158,7 +158,7 @@ public class EquationBalancer {
 			for (int i = 0; i < rank; ++i)
 				lnSimplify(mtx[i], pos[i]);
 		}
-		System.out.println(mat);
+//		System.out.println(mat);
 		
 		// 判断是否有解：
 		// 最后一列必须全都是非零数
@@ -173,12 +173,12 @@ public class EquationBalancer {
 					} else if (j == (cols-1)) {
 						// 到达行尾且为0，必为无解
 						// TODO: 无解处理
-						return null;
+						return false;
 					}
 				}
 				// 每行超出两个非零数
 				if (numNonZero > 2) {
-					return null;
+					return false;
 				} else {
 					numNonZero = 0;	// 计数器清零
 				}
@@ -217,17 +217,21 @@ public class EquationBalancer {
 		}
 		
 		// 输出结果
-		{
-			System.out.print("配平系数：");
-			for (int i = 0; i < lines; ++i) {
-				System.out.print(numResult[i][1]);
-				System.out.print(", ");
+//		System.out.print("配平系数：");
+		for (int i = 0; i < lines; ++i) {
+			if (i < numReactant) {
+				this.equInner.reactant.get(i).setR(numResult[i][1]);
+			} else {
+				this.equInner.product.get(i-numReactant).setR(numResult[i][1]);
 			}
-			System.out.println(numResult[0][0]);
+//			System.out.print(numResult[i][1]);
+//			System.out.print(", ");
 		}
+		this.equInner.product.get(numProduct-1).setR(numResult[0][1]);
+//		System.out.println(numResult[0][0]);
 		
-		
-		return null;
+//		System.out.println(this.equInner);
+		return true;
 	}
 	
 	private static void lnSubstract(int[] ln1, int ln2[], int pos, int key) {
