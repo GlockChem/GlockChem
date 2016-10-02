@@ -10,7 +10,7 @@ public class Startup {
 	public static void main(String[] args) throws Exception {
 		// 注意下面的方程式没配平
 		// 当配平功能实现时才可以计算哦
-		Equation aa = new Equation("H2 + O2 ---> H2O");
+		Equation aa = new Equation("Fe2O3 + CO = Fe + CO2");
 		EquationCalculator calc = new EquationCalculator(aa);
 		EquationCondition condition = new EquationConditionMass(aa.reactant.get(0), new AdvNum(25.0));
 		
