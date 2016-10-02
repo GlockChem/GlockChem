@@ -83,6 +83,11 @@ public class EquationBalancer {
 			return false;
 		}
 		
+		// 元素不守恒配个屁啊
+		if (checkElementBalance() == false) {
+			return false;
+		}
+		
 		// 得到行数与列数，用作以后建立矩阵
 		int cols = numReactant + numProduct;
 		int lines = 0;
@@ -243,6 +248,32 @@ public class EquationBalancer {
 		return true;
 	}
 	
+	private boolean checkElementBalance() {
+		// 反应物、生成物原子种类表
+		Map<String,Boolean> map = new HashMap<String,Boolean>();
+		for (Pair<Formula,Integer> pair : this.equInner.reactant) {
+			for (Map.Entry<String,Integer> atomPair : pair.getL().mapAtomList.entrySet()) {
+				map.put(atomPair.getKey(), false);
+			}
+		}
+		for (Pair<Formula,Integer> pair : this.equInner.product) {
+			for (Map.Entry<String,Integer> atomPair : pair.getL().mapAtomList.entrySet()) {
+				if (map.containsKey(atomPair.getKey())) {
+					map.put(atomPair.getKey(), true);
+				} else {
+					return false;
+				}
+			}
+		}
+		for (Map.Entry<String,Boolean> entry : map.entrySet()) {
+			if (entry.getValue() == false) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
 	private static void lnSubstract(int[] ln1, int ln2[], int pos, int key) {
 		assert((ln1[pos] != 0) && (ln2[pos] != 0));
 
