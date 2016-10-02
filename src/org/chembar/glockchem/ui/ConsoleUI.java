@@ -21,7 +21,6 @@ public class ConsoleUI {
 		Equation equation = null;
 		EquationCalculator calc = null;
 		EquationBalancer balance;
-		
 		int status = 0;
 		while(status != -1) {
 			switch (status) {
