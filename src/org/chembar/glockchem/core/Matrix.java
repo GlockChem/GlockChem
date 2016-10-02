@@ -1,23 +1,23 @@
-package org.chembar.glockchem.core;
-// ²¢Î´Íê³É
-// TODO:ÍêÉÆ
+ï»¿package org.chembar.glockchem.core;
+// å¹¶æœªå®Œæˆ
+// TODO:å®Œå–„
 
-/** ¾ØÕóÀà
- * <p>ÎªÅäºÏ{@link EquationBalancer#balanceGaussian()}¶øĞ´µÄÒ»¸ö¾ØÕóµÄ¼òÒ×ÊµÏÖ¡£</p>
+/** çŸ©é˜µç±»
+ * <p>ä¸ºé…åˆ{@link EquationBalancer#balanceGaussian()}è€Œå†™çš„ä¸€ä¸ªçŸ©é˜µçš„ç®€æ˜“å®ç°ã€‚</p>
  * @author DuckSoft
  */
 public final class Matrix {
 	public int[][] matrix;
 	
-	/**¹¹Ôìº¯Êı
-	 * <p>¹¹ÔìÒ»¸öĞÂµÄ¾ØÕóÀà¡£<br>
-	 * ×¢Òâ£º¾ØÕóµÄĞĞÊıºÍÁĞÊı±ØĞëÎªÕıÊı£¡</p>
-	 * @param lines ĞÂ¾ØÕóµÄĞĞÊı¡£
-	 * @param cols ĞÂ¾ØÕóµÄÁĞÊı¡£
+	/**æ„é€ å‡½æ•°
+	 * <p>æ„é€ ä¸€ä¸ªæ–°çš„çŸ©é˜µç±»ã€‚<br>
+	 * æ³¨æ„ï¼šçŸ©é˜µçš„è¡Œæ•°å’Œåˆ—æ•°å¿…é¡»ä¸ºæ­£æ•°ï¼</p>
+	 * @param lines æ–°çŸ©é˜µçš„è¡Œæ•°ã€‚
+	 * @param cols æ–°çŸ©é˜µçš„åˆ—æ•°ã€‚
 	 */
 	public Matrix(int lines, int cols) {
 		assert((lines > 0) && (cols > 0));
-		// ³õÊ¼»¯¾ØÕó
+		// åˆå§‹åŒ–çŸ©é˜µ
 		matrix = new int[lines][cols];
 	}
 	

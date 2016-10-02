@@ -1,26 +1,28 @@
-package org.chembar.glockchem.core;
+ï»¿package org.chembar.glockchem.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-/**·½³ÌÊ½ÅäÆ½Àà
- * <p>ÓÃ×÷Óë»¯Ñ§·½³ÌÊ½ÅäÆ½ÓĞ¹ØµÄ²Ù×÷¡£</p>
+/**æ–¹ç¨‹å¼é…å¹³ç±»
+ * <p>ç”¨ä½œä¸åŒ–å­¦æ–¹ç¨‹å¼é…å¹³æœ‰å…³çš„æ“ä½œã€‚</p>
  * @author DuckSoft
  */
 public class EquationBalancer {
 	Equation equInner;
 	
-	/**¹¹Ôìº¯Êı
-	 * @param equation Óû½øĞĞ²Ù×÷µÄ·½³ÌÊ½
+	/**æ„é€ å‡½æ•°
+	 * @param equation æ¬²è¿›è¡Œæ“ä½œçš„æ–¹ç¨‹å¼
 	 */
 	public EquationBalancer(Equation equation) {
 		this.equInner = equation;
 	}
 	
-	/** ¼ì²é·½³ÌÊ½ÊÇ·ñÆ½ºâ
-	 * <p>±éÀú·½³ÌÊ½ÄÚ{@link Formula}ÄÚµÄÔ­×Ó¸öÊı±í£¬ÒÔÑéÖ¤·½³ÌÊ½ÊÇ·ñÆ½ºâ¡£<br>
-	 * ÈôÆ½ºâ£¬Ôò·µ»Ø{@code true}£»Èô·ñ£¬Ôò·µ»Ø{@code false}¡£</p>
-	 * @return ·½³ÌÊ½ÊÇ·ñÆ½ºâ
+	/** æ£€æŸ¥æ–¹ç¨‹å¼æ˜¯å¦å¹³è¡¡
+	 * <p>éå†æ–¹ç¨‹å¼å†…{@link Formula}å†…çš„åŸå­ä¸ªæ•°è¡¨ï¼Œä»¥éªŒè¯æ–¹ç¨‹å¼æ˜¯å¦å¹³è¡¡ã€‚<br>
+	 * è‹¥å¹³è¡¡ï¼Œåˆ™è¿”å›{@code true}ï¼›è‹¥å¦ï¼Œåˆ™è¿”å›{@code false}ã€‚</p>
+	 * @return æ–¹ç¨‹å¼æ˜¯å¦å¹³è¡¡
 	 */
 	public boolean checkBalance() {
 		Map<String,Integer> atomReactant = new HashMap<String,Integer>();
@@ -65,15 +67,51 @@ public class EquationBalancer {
 		return true;
 	}
 	
-	/** ¸ßË¹ÏûÔª·¨ÅäÆ½·½³ÌÊ½
-	 * <p>Ê¹ÓÃ¸ßË¹ÏûÔª·¨ÅäÆ½Equation¡£<br>
-	 * ³É¹¦Ôò·µ»ØÒÑÅäÆ½µÄ{@code Equation}£¬·ñÔò·µ»Ø{@code null}¡£</p>
-	 * @return ÅäÆ½½á¹û
+	/** é«˜æ–¯æ¶ˆå…ƒæ³•é…å¹³æ–¹ç¨‹å¼
+	 * <p>ä½¿ç”¨é«˜æ–¯æ¶ˆå…ƒæ³•é…å¹³Equationã€‚<br>
+	 * æˆåŠŸåˆ™è¿”å›å·²é…å¹³çš„{@code Equation}ï¼Œå¦åˆ™è¿”å›{@code null}ã€‚</p>
+	 * @return é…å¹³ç»“æœ
 	 */
 	public Equation balanceGaussian() {
-		//TODO: ¸ßË¹ÏûÔªËã·¨
+		//TODO: é«˜æ–¯æ¶ˆå…ƒç®—æ³•
 		
+		// è·å–ååº”ç‰©å’Œç”Ÿæˆç‰©çš„æ•°é‡
+		int numReactant = this.equInner.reactant.size();
+		int numProduct = this.equInner.product.size();
+		
+		// å°¼ç›ç©ºçš„æ–¹ç¨‹å¼é…ä¸ªå±å•Š
+		if ((numReactant == 0) || (numProduct == 0)) {
+			return null;
+		}
+		
+		// å¾—åˆ°è¡Œæ•°ä¸åˆ—æ•°ï¼Œç”¨ä½œä»¥åå»ºç«‹çŸ©é˜µ
+		int cols = numReactant + numProduct;
+		int lines;
+		{
+			// åŸå­ç±»å‹è¡¨
+			Map<String,Boolean> mapAtom = new HashMap<String,Boolean>();
+			
+			// éå†ååº”ç‰©å’Œç”Ÿæˆç‰©
+			for (Pair<Formula,Integer> pair : this.equInner.product) {
+				for (Map.Entry<String,Integer> entry : pair.getL().mapAtomList.entrySet()) {
+					mapAtom.put(entry.getKey(), true);
+				}
+			}
+			for (Pair<Formula,Integer> pair : this.equInner.reactant) {
+				for (Map.Entry<String,Integer> entry : pair.getL().mapAtomList.entrySet()) {
+					mapAtom.put(entry.getKey(), true);
+				}
+			}
+			
+			// å¾—åˆ°è¡Œæ•°
+			lines = mapAtom.size();
+		}
+		
+		// å»ºç«‹çŸ©é˜µå¯¹è±¡
+		Matrix mat = new Matrix(cols, lines);
 		
 		return null;
 	}
+	
+	
 }

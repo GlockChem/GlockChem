@@ -1,19 +1,19 @@
-package org.chembar.glockchem.core;
+ï»¿package org.chembar.glockchem.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/** »¯Ñ§·½³ÌÊ½³éÏó
+/** åŒ–å­¦æ–¹ç¨‹å¼æŠ½è±¡
  * @author DuckSoft
  */
 public class Equation {
-	/** ·´Ó¦ÎïÁĞ±í*/
+	/** ååº”ç‰©åˆ—è¡¨*/
 	public List<Pair<Formula,Integer>> reactant = new ArrayList<Pair<Formula,Integer>>();
-	/** Éú³ÉÎïÁĞ±í*/
+	/** ç”Ÿæˆç‰©åˆ—è¡¨*/
 	public List<Pair<Formula,Integer>> product = new ArrayList<Pair<Formula,Integer>>();
 	
-	/** ÒÔ¸ø¶¨µÄº¬ÓĞÓĞĞ§¸ñÊ½µÄ»¯Ñ§·½³ÌÊ½×Ö·û´®Éú³ÉÒ»¸öEquation¶ÔÏó¡£<br/>
-	 * <p>¿É½ÓÊÜµÄ¸ñÊ½Ê¾ÀıÈçÏÂ£º
+	/** ä»¥ç»™å®šçš„å«æœ‰æœ‰æ•ˆæ ¼å¼çš„åŒ–å­¦æ–¹ç¨‹å¼å­—ç¬¦ä¸²ç”Ÿæˆä¸€ä¸ªEquationå¯¹è±¡ã€‚<br/>
+	 * <p>å¯æ¥å—çš„æ ¼å¼ç¤ºä¾‹å¦‚ä¸‹ï¼š
 	 * <li>2C + O2 = 2CO</li>
 	 * <li>2C + O2 -> 2CO</li>
 	 * <li>2C + O2 === 2CO</li>
@@ -24,39 +24,39 @@ public class Equation {
 		this.parseEquation(strEquation);
 	}
 
-	/** ·ÖÎö·½³ÌÊ½
-	 * @param strEquation Óû·ÖÎöµÄ·½³ÌÊ½
+	/** åˆ†ææ–¹ç¨‹å¼
+	 * @param strEquation æ¬²åˆ†æçš„æ–¹ç¨‹å¼
 	 * @throws Exception
 	 */
 	public void parseEquation(String strEquation) throws Exception {
-		// ²»¿ÉÖØ¸´·ÖÎö
+		// ä¸å¯é‡å¤åˆ†æ
 		assert((this.reactant.isEmpty() && this.product.isEmpty()));
 		
-		// ±ÜÃâÊäÈëÎª¿Õ
+		// é¿å…è¾“å…¥ä¸ºç©º
 		if (strEquation.isEmpty()) {
-			//TODO: ÊäÈëÎª¿ÕµÄ´¦Àí
-			throw new Exception("ÊäÈëÎª¿Õ");
+			//TODO: è¾“å…¥ä¸ºç©ºçš„å¤„ç†
+			throw new Exception("è¾“å…¥ä¸ºç©º");
 		}
 		
-		// ±ÜÃâÖØ¸´·ÖÎö
+		// é¿å…é‡å¤åˆ†æ
 		
-		String partLeft = "";		// ·´Ó¦Îï¡¢Éú³ÉÎï»º³åÇø
+		String partLeft = "";		// ååº”ç‰©ã€ç”Ÿæˆç‰©ç¼“å†²åŒº
 		String partRight = "";
-		boolean isRight = false;	// ÊÇ·ñµ½ÁËÉú³ÉÎï±êÖ¾ 
-		boolean bAuxFlag = false;	// ¸¨Öú±êÖ¾
+		boolean isRight = false;	// æ˜¯å¦åˆ°äº†ç”Ÿæˆç‰©æ ‡å¿— 
+		boolean bAuxFlag = false;	// è¾…åŠ©æ ‡å¿—
 		
 		for (char i : strEquation.toCharArray()) {
-			if (i == '=' || i == '-') {	// ³öÏÖ = »ò - ·ûºÅÊ±ÅĞ¶¨Îª·´Ó¦Îï½áÊø 
+			if (i == '=' || i == '-') {	// å‡ºç° = æˆ– - ç¬¦å·æ—¶åˆ¤å®šä¸ºååº”ç‰©ç»“æŸ 
 				isRight = true;
-				if (bAuxFlag == true) {	// ÈôÓÖ³öÏÖÒ»´Î·Ö¸ô·û£¬ÔòÅĞ¶¨Îª´íÎó 
-					throw new Exception("³öÏÖ¶àÓÚÒ»¸öµÄ·´Ó¦Îï-Éú³ÉÎï·Ö¸ô·û");
+				if (bAuxFlag == true) {	// è‹¥åˆå‡ºç°ä¸€æ¬¡åˆ†éš”ç¬¦ï¼Œåˆ™åˆ¤å®šä¸ºé”™è¯¯ 
+					throw new Exception("å‡ºç°å¤šäºä¸€ä¸ªçš„ååº”ç‰©-ç”Ÿæˆç‰©åˆ†éš”ç¬¦");
 				}
 				continue;
-			} else if (i == ' ' || i == '>') {	// ºöÂÔµô ---> ¸ñÊ½ÖĞµÄ > ×Ö·ûÒÔ¼°¿Õ°××Ö·û
+			} else if (i == ' ' || i == '>') {	// å¿½ç•¥æ‰ ---> æ ¼å¼ä¸­çš„ > å­—ç¬¦ä»¥åŠç©ºç™½å­—ç¬¦
 				continue;
 			} else {
-				if (isRight == true) {	// ÈôÒÑµ½ÁËÉú³ÉÎï²¿·Ö 
-					bAuxFlag = true; 	// Éè¶¨¸¨Öú±êÖ¾ 
+				if (isRight == true) {	// è‹¥å·²åˆ°äº†ç”Ÿæˆç‰©éƒ¨åˆ† 
+					bAuxFlag = true; 	// è®¾å®šè¾…åŠ©æ ‡å¿— 
 				}
 			}
 			
@@ -67,53 +67,53 @@ public class Equation {
 			}
 		}
 		
-		// ÏÖÔÚ·ÖÀëµ½ÁĞ±íÀï
+		// ç°åœ¨åˆ†ç¦»åˆ°åˆ—è¡¨é‡Œ
 		if (partLeft.isEmpty() || partRight.isEmpty()) {
-			throw new Exception("ËùÊäÈëµÄ·´Ó¦Îï»òÉú³ÉÎïÎª¿Õ");
+			throw new Exception("æ‰€è¾“å…¥çš„ååº”ç‰©æˆ–ç”Ÿæˆç‰©ä¸ºç©º");
 		}
 
-		boolean isStarting = true;	// ±êÖ¾£ºÊÇ·ñÊÇ»¯Ñ§Ê½µÄ¿ªÍ·
-		String strTempA = "";			// ÏµÊı´æ´¢
-		String strTempB = "";			// »¯Ñ§Ê½´æ´¢
+		boolean isStarting = true;	// æ ‡å¿—ï¼šæ˜¯å¦æ˜¯åŒ–å­¦å¼çš„å¼€å¤´
+		String strTempA = "";			// ç³»æ•°å­˜å‚¨
+		String strTempB = "";			// åŒ–å­¦å¼å­˜å‚¨
 		
 		for (char i : partLeft.toCharArray()) {
-			if (isStarting == true) {	// ÈôÎª»¯Ñ§Ê½µÄ¿ªÍ· 
-				if (('0' <= i) && (i <= '9')) { // ÅĞ¶¨ÊÇ·ñÎªÊı×Ö 
-					strTempA += String.valueOf(i);				// ÈôÎªÊı×ÖÏµÊıÔò¼ÓÈëµ½ÏµÊıÔİ´æÆ÷ 
+			if (isStarting == true) {	// è‹¥ä¸ºåŒ–å­¦å¼çš„å¼€å¤´ 
+				if (('0' <= i) && (i <= '9')) { // åˆ¤å®šæ˜¯å¦ä¸ºæ•°å­— 
+					strTempA += String.valueOf(i);				// è‹¥ä¸ºæ•°å­—ç³»æ•°åˆ™åŠ å…¥åˆ°ç³»æ•°æš‚å­˜å™¨ 
 				} else {
-					isStarting = false;	// Èô·ÇÔò±íÊ¾Êı×Ö²¿·Ö½áÊø
+					isStarting = false;	// è‹¥éåˆ™è¡¨ç¤ºæ•°å­—éƒ¨åˆ†ç»“æŸ
 					
-					if (strTempA.isEmpty()){	// ´¦ÀíÃ»ÓĞÏµÊıµÄÇé¿ö 
-						strTempA = "1";		// ¸øÃ»ÓĞÏµÊıµÄÏîÌí¼ÓÏµÊı"1" 
+					if (strTempA.isEmpty()){	// å¤„ç†æ²¡æœ‰ç³»æ•°çš„æƒ…å†µ 
+						strTempA = "1";		// ç»™æ²¡æœ‰ç³»æ•°çš„é¡¹æ·»åŠ ç³»æ•°"1" 
 					}
 					
-					if (i == '+') {	// ·ÀÖ¹¿ªÍ·¾ÍÓöµ½"+"ºÅµÄÀ¬»øÇé¿ö 
-						throw new Exception("ÁĞ±í¿ªÍ·Óöµ½¿Õ°×Ïî");
+					if (i == '+') {	// é˜²æ­¢å¼€å¤´å°±é‡åˆ°"+"å·çš„åƒåœ¾æƒ…å†µ 
+						throw new Exception("åˆ—è¡¨å¼€å¤´é‡åˆ°ç©ºç™½é¡¹");
 					} 
 					
-					strTempB += String.valueOf(i);	// ½«±¾¸ö×Ö·ûÈûÈë»¯Ñ§Ê½´æ´¢Æ÷ 
+					strTempB += String.valueOf(i);	// å°†æœ¬ä¸ªå­—ç¬¦å¡å…¥åŒ–å­¦å¼å­˜å‚¨å™¨ 
 				}
-			} else {	// Èô·Ç»¯Ñ§Ê½µÄ¿ªÍ· 
-				if (i == '+') {	// ÈôÎª"+"ºÅ 
-					if (strTempB.isEmpty() || strTempA.isEmpty()) { // ·ÀÖ¹»¯Ñ§Ê½»òÏµÊıÎª¿ÕÊ±¼ÓÈëÁĞ±í
-						throw new Exception("Equation::parseFormulaList: ÁĞ±íÄÚÓöµ½¿Õ°×Ïî");
+			} else {	// è‹¥éåŒ–å­¦å¼çš„å¼€å¤´ 
+				if (i == '+') {	// è‹¥ä¸º"+"å· 
+					if (strTempB.isEmpty() || strTempA.isEmpty()) { // é˜²æ­¢åŒ–å­¦å¼æˆ–ç³»æ•°ä¸ºç©ºæ—¶åŠ å…¥åˆ—è¡¨
+						throw new Exception("Equation::parseFormulaList: åˆ—è¡¨å†…é‡åˆ°ç©ºç™½é¡¹");
 					} else {
 						this.reactant.add(new Pair<Formula,Integer>(new Formula(strTempB),new Integer(strTempA)));
-						// ³õÊ¼»¯×´Ì¬ 
+						// åˆå§‹åŒ–çŠ¶æ€ 
 						strTempA = "";
 						strTempB = "";
 						isStarting = true;
 					}
-				} else {		// Èô·Ç"+"ºÅ 
-					strTempB += String.valueOf(i);	// Ö±½Ó¼ÓÈë»¯Ñ§Ê½»º³å 
+				} else {		// è‹¥é"+"å· 
+					strTempB += String.valueOf(i);	// ç›´æ¥åŠ å…¥åŒ–å­¦å¼ç¼“å†² 
 				}
 			}
 		}
 		
-		// Ñ­»·ºó´¦Àí
+		// å¾ªç¯åå¤„ç†
 		if (!(strTempA.isEmpty() || strTempB.isEmpty())) {
 			this.reactant.add(new Pair<Formula,Integer>(new Formula(strTempB),new Integer(strTempA)));
-			// ³õÊ¼»¯×´Ì¬ 
+			// åˆå§‹åŒ–çŠ¶æ€ 
 			strTempA = "";
 			strTempB = "";
 			isStarting = true;
@@ -124,43 +124,43 @@ public class Equation {
 		isStarting = true;
 		
 		for (char i : partRight.toCharArray()) {
-			if (isStarting == true) {	// ÈôÎª»¯Ñ§Ê½µÄ¿ªÍ· 
-				if (('0' <= i) && (i <= '9')) { // ÅĞ¶¨ÊÇ·ñÎªÊı×Ö 
-					strTempA += String.valueOf(i);				// ÈôÎªÊı×ÖÏµÊıÔò¼ÓÈëµ½ÏµÊıÔİ´æÆ÷ 
+			if (isStarting == true) {	// è‹¥ä¸ºåŒ–å­¦å¼çš„å¼€å¤´ 
+				if (('0' <= i) && (i <= '9')) { // åˆ¤å®šæ˜¯å¦ä¸ºæ•°å­— 
+					strTempA += String.valueOf(i);				// è‹¥ä¸ºæ•°å­—ç³»æ•°åˆ™åŠ å…¥åˆ°ç³»æ•°æš‚å­˜å™¨ 
 				} else {
-					isStarting = false;	// Èô·ÇÔò±íÊ¾Êı×Ö²¿·Ö½áÊø
+					isStarting = false;	// è‹¥éåˆ™è¡¨ç¤ºæ•°å­—éƒ¨åˆ†ç»“æŸ
 					
-					if (strTempA.isEmpty()){	// ´¦ÀíÃ»ÓĞÏµÊıµÄÇé¿ö 
-						strTempA = "1";		// ¸øÃ»ÓĞÏµÊıµÄÏîÌí¼ÓÏµÊı"1" 
+					if (strTempA.isEmpty()){	// å¤„ç†æ²¡æœ‰ç³»æ•°çš„æƒ…å†µ 
+						strTempA = "1";		// ç»™æ²¡æœ‰ç³»æ•°çš„é¡¹æ·»åŠ ç³»æ•°"1" 
 					}
 					
-					if (i == '+') {	// ·ÀÖ¹¿ªÍ·¾ÍÓöµ½"+"ºÅµÄÀ¬»øÇé¿ö 
-						throw new Exception("ÁĞ±í¿ªÍ·Óöµ½¿Õ°×Ïî");
+					if (i == '+') {	// é˜²æ­¢å¼€å¤´å°±é‡åˆ°"+"å·çš„åƒåœ¾æƒ…å†µ 
+						throw new Exception("åˆ—è¡¨å¼€å¤´é‡åˆ°ç©ºç™½é¡¹");
 					} 
 					
-					strTempB += String.valueOf(i);	// ½«±¾¸ö×Ö·ûÈûÈë»¯Ñ§Ê½´æ´¢Æ÷ 
+					strTempB += String.valueOf(i);	// å°†æœ¬ä¸ªå­—ç¬¦å¡å…¥åŒ–å­¦å¼å­˜å‚¨å™¨ 
 				}
-			} else {	// Èô·Ç»¯Ñ§Ê½µÄ¿ªÍ· 
-				if (i == '+') {	// ÈôÎª"+"ºÅ 
-					if (strTempB.isEmpty() || strTempA.isEmpty()) { // ·ÀÖ¹»¯Ñ§Ê½»òÏµÊıÎª¿ÕÊ±¼ÓÈëÁĞ±í
-						throw new Exception("Equation::parseFormulaList: ÁĞ±íÄÚÓöµ½¿Õ°×Ïî");
+			} else {	// è‹¥éåŒ–å­¦å¼çš„å¼€å¤´ 
+				if (i == '+') {	// è‹¥ä¸º"+"å· 
+					if (strTempB.isEmpty() || strTempA.isEmpty()) { // é˜²æ­¢åŒ–å­¦å¼æˆ–ç³»æ•°ä¸ºç©ºæ—¶åŠ å…¥åˆ—è¡¨
+						throw new Exception("Equation::parseFormulaList: åˆ—è¡¨å†…é‡åˆ°ç©ºç™½é¡¹");
 					} else {
 						this.product.add(new Pair<Formula,Integer>(new Formula(strTempB),new Integer(strTempA)));
-						// ³õÊ¼»¯×´Ì¬ 
+						// åˆå§‹åŒ–çŠ¶æ€ 
 						strTempA = "";
 						strTempB = "";
 						isStarting = true;
 					}
-				} else {		// Èô·Ç"+"ºÅ 
-					strTempB += String.valueOf(i);	// Ö±½Ó¼ÓÈë»¯Ñ§Ê½»º³å 
+				} else {		// è‹¥é"+"å· 
+					strTempB += String.valueOf(i);	// ç›´æ¥åŠ å…¥åŒ–å­¦å¼ç¼“å†² 
 				}
 			}
 		}
 		
-		// Ñ­»·ºó´¦Àí
+		// å¾ªç¯åå¤„ç†
 		if (!(strTempA.isEmpty() || strTempB.isEmpty())) {
 			this.product.add(new Pair<Formula,Integer>(new Formula(strTempB),new Integer(strTempA)));
-			// ³õÊ¼»¯×´Ì¬ 
+			// åˆå§‹åŒ–çŠ¶æ€ 
 			strTempA = "";
 			strTempB = "";
 			isStarting = true;

@@ -1,53 +1,53 @@
-package org.chembar.glockchem.core;
+ï»¿package org.chembar.glockchem.core;
 
 import org.chembar.glockchem.core.RMDatabase.AtomNameNotFoundException;
 
-/** »¯Ñ§·½³ÌÊ½¼ÆËãÀà
- * <p>ÓÃ×÷»¯Ñ§·½³ÌÊ½µÄ¼òµ¥±ÈÖµ¼ÆËã</p>
+/** åŒ–å­¦æ–¹ç¨‹å¼è®¡ç®—ç±»
+ * <p>ç”¨ä½œåŒ–å­¦æ–¹ç¨‹å¼çš„ç®€å•æ¯”å€¼è®¡ç®—</p>
  * @author DuckSoft
  */
 public final class EquationCalculator {
-	/** ÄÚ²¿µÄ»¯Ñ§·½³ÌÊ½
-	 * <p>ÓÉ¹¹Ôìº¯Êı{@link #EquationCalculator(Equation)}ÎªÆä¸³Öµ¡£</p>
+	/** å†…éƒ¨çš„åŒ–å­¦æ–¹ç¨‹å¼
+	 * <p>ç”±æ„é€ å‡½æ•°{@link #EquationCalculator(Equation)}ä¸ºå…¶èµ‹å€¼ã€‚</p>
 	 * @see #EquationCalculator(Equation)
 	 */
 	Equation equInner;
-	/** ÓÃÓÚ¼ÆËã·Ö×ÓÁ¿µÄÊı¾İ¿â */
+	/** ç”¨äºè®¡ç®—åˆ†å­é‡çš„æ•°æ®åº“ */
 	RMDatabase dbRM = new RMDatabase();
 	
-	/** ¹¹Ôìº¯Êı
-	 * <p>³õÊ¼»¯Ò»¸ö»¯Ñ§·½³ÌÊ½¼ÆËãÀà¡£<br>
-	 * ×¢Òâ£º¸Ã·½³ÌÊ½<b>±ØĞëÆ½ºâ</b>£¨¼´·½³ÌÊ½×óÓÒÁ½¶Ë±ØĞë<b>×ñÑ­ÖÊÁ¿ÊØºã¶¨ÂÉ</b>£©¡£<br/>
-	 * Èô·½³ÌÊ½²»Æ½ºâ£¬³ÌĞò»áÊÔÍ¼²ÉÓÃ¸ßË¹ÏûÔª·¨½øĞĞ×Ô¶¯ÅäÆ½²¢ÓÃ×÷¼ÆËã¡££¨¸Ã×Ô¶¯¹ı³Ì<b>²»»áÓ°Ïìµ½´«ÈëµÄEquation¶ÔÏó</b>£©<br>
-	 * Èô¾­¹ı×Ô¶¯ÅäÆ½ºóÈÔÎŞ·¨Æ½ºâ£¬³ÌĞò»áÒı·¢Ò»¸öÒì³£¡£</p>
-	 * @param equToCalculate ÓÃÓÚ¼ÆËãµÄ{@link Equation}¶ÔÏó
-	 * @throws Exception Òı·¢µÄÒì³£
+	/** æ„é€ å‡½æ•°
+	 * <p>åˆå§‹åŒ–ä¸€ä¸ªåŒ–å­¦æ–¹ç¨‹å¼è®¡ç®—ç±»ã€‚<br>
+	 * æ³¨æ„ï¼šè¯¥æ–¹ç¨‹å¼<b>å¿…é¡»å¹³è¡¡</b>ï¼ˆå³æ–¹ç¨‹å¼å·¦å³ä¸¤ç«¯å¿…é¡»<b>éµå¾ªè´¨é‡å®ˆæ’å®šå¾‹</b>ï¼‰ã€‚<br/>
+	 * è‹¥æ–¹ç¨‹å¼ä¸å¹³è¡¡ï¼Œç¨‹åºä¼šè¯•å›¾é‡‡ç”¨é«˜æ–¯æ¶ˆå…ƒæ³•è¿›è¡Œè‡ªåŠ¨é…å¹³å¹¶ç”¨ä½œè®¡ç®—ã€‚ï¼ˆè¯¥è‡ªåŠ¨è¿‡ç¨‹<b>ä¸ä¼šå½±å“åˆ°ä¼ å…¥çš„Equationå¯¹è±¡</b>ï¼‰<br>
+	 * è‹¥ç»è¿‡è‡ªåŠ¨é…å¹³åä»æ— æ³•å¹³è¡¡ï¼Œç¨‹åºä¼šå¼•å‘ä¸€ä¸ªå¼‚å¸¸ã€‚</p>
+	 * @param equToCalculate ç”¨äºè®¡ç®—çš„{@link Equation}å¯¹è±¡
+	 * @throws Exception å¼•å‘çš„å¼‚å¸¸
 	 */
 	public EquationCalculator(Equation equToCalculate) throws Exception {
-		// ¼ì²é·½³ÌÊ½ÊÇ·ñÒÑ¾­Æ½ºâ
+		// æ£€æŸ¥æ–¹ç¨‹å¼æ˜¯å¦å·²ç»å¹³è¡¡
 		EquationBalancer balancer = new EquationBalancer(equToCalculate);
 		
 		if (balancer.checkBalance() == true) {
-			// ÒÑÆ½ºâÔòÖ±½ÓÁôÓÃ
+			// å·²å¹³è¡¡åˆ™ç›´æ¥ç•™ç”¨
 			this.equInner = equToCalculate;
 		} else {
-			// Î´Æ½ºâ£¬³¢ÊÔÊ¹ÓÃ¸ßË¹ÏûÔª·¨ÅäÆ½
-			// ÅäÆ½Ê§°Ü»á·µ»Ønull
+			// æœªå¹³è¡¡ï¼Œå°è¯•ä½¿ç”¨é«˜æ–¯æ¶ˆå…ƒæ³•é…å¹³
+			// é…å¹³å¤±è´¥ä¼šè¿”å›null
 			this.equInner = balancer.balanceGaussian();
 			
 			if (this.equInner == null) {
-				// Ê§°ÜÁË
-				throw new Exception("Õâ·½³ÌÊ½Åä²»Æ½£¬ÔõÃ´ËãÀ²£¡³ÔÊºÀ²Äú£¡");
+				// å¤±è´¥äº†
+				throw new Exception("è¿™æ–¹ç¨‹å¼é…ä¸å¹³ï¼Œæ€ä¹ˆç®—å•¦ï¼åƒå±å•¦æ‚¨ï¼");
 			}
 		}
 		
 	}
 	
-	/** ¼ÆËãÏàÓ¦ÎïÖÊµÄÖÊÁ¿
+	/** è®¡ç®—ç›¸åº”ç‰©è´¨çš„è´¨é‡
 	 * <p></p>
-	 * @param condition Ìá¹©µÄÌõ¼ş
-	 * @param refItem ½«±»¼ÆËãµÄÎïÖÊ
-	 * @return ¼ÆËã½á¹û£¨ÖÊÁ¿£©
+	 * @param condition æä¾›çš„æ¡ä»¶
+	 * @param refItem å°†è¢«è®¡ç®—çš„ç‰©è´¨
+	 * @return è®¡ç®—ç»“æœï¼ˆè´¨é‡ï¼‰
 	 * @throws AtomNameNotFoundException
 	 */
 	public AdvNum calcMass(EquationCondition condition, Pair<Formula, Integer> refItem) throws AtomNameNotFoundException {
@@ -58,11 +58,11 @@ public final class EquationCalculator {
 				.multiply(refItem.getR());
 	}
 	
-	/** ¼ÆËãÏàÓ¦ÎïÖÊµÄÎïÖÊµÄÁ¿
+	/** è®¡ç®—ç›¸åº”ç‰©è´¨çš„ç‰©è´¨çš„é‡
 	 * <p></p>
-	 * @param condition Ìá¹©µÄÌõ¼ş
-	 * @param refItem ½«±»¼ÆËãµÄÎïÖÊ
-	 * @return ¼ÆËã½á¹û£¨ÎïÖÊµÄÁ¿£©
+	 * @param condition æä¾›çš„æ¡ä»¶
+	 * @param refItem å°†è¢«è®¡ç®—çš„ç‰©è´¨
+	 * @return è®¡ç®—ç»“æœï¼ˆç‰©è´¨çš„é‡ï¼‰
 	 * @throws AtomNameNotFoundException
 	 */
 	public AdvNum calcMole(EquationCondition condition, Pair<Formula, Integer> refItem) throws AtomNameNotFoundException {
@@ -71,8 +71,8 @@ public final class EquationCalculator {
 				.multiply(refItem.getR());
 	}
 	
-	/** ¼ÆËãÌõ¼ş£¨ÖÊÁ¿£©
-	 * <p>ÓÃÓÚÎª{@link EquationCalculator}µÄ¼ÆËãÌá¹©Ìõ¼ş¡£</p>
+	/** è®¡ç®—æ¡ä»¶ï¼ˆè´¨é‡ï¼‰
+	 * <p>ç”¨äºä¸º{@link EquationCalculator}çš„è®¡ç®—æä¾›æ¡ä»¶ã€‚</p>
 	 * @author DuckSoft
 	 */
 	public final static class EquationConditionMass implements EquationCondition {
@@ -95,8 +95,8 @@ public final class EquationCalculator {
 		}
 	}
 	
-	/** ¼ÆËãÌõ¼ş£¨ÎïÖÊµÄÁ¿£©
-	 * <p>ÓÃÓÚÎª{@link EquationCalculator}µÄ¼ÆËãÌá¹©Ìõ¼ş¡£</p>
+	/** è®¡ç®—æ¡ä»¶ï¼ˆç‰©è´¨çš„é‡ï¼‰
+	 * <p>ç”¨äºä¸º{@link EquationCalculator}çš„è®¡ç®—æä¾›æ¡ä»¶ã€‚</p>
 	 * @author DuckSoft
 	 */
 	public final static class EquationConditionMole implements EquationCondition {
@@ -119,18 +119,18 @@ public final class EquationCalculator {
 		}
 	}
 	
-	/** ¼ÆËãÌõ¼ş
-	 * <p>ÓÃÓÚÎª{@link EquationCalculator}µÄ¼ÆËãÌá¹©Ìõ¼ş¡£</p>
+	/** è®¡ç®—æ¡ä»¶
+	 * <p>ç”¨äºä¸º{@link EquationCalculator}çš„è®¡ç®—æä¾›æ¡ä»¶ã€‚</p>
 	 * @author DuckSoft
 	 * @see EquationConditionMass
 	 * @see EquationConditionMole
 	 */
 	public static interface EquationCondition {
-		/** »ñÈ¡Ìõ¼şÖĞµÄÖÊÁ¿*/
+		/** è·å–æ¡ä»¶ä¸­çš„è´¨é‡*/
 		public AdvNum getConditionMass(RMDatabase rmDatabase) throws AtomNameNotFoundException;
-		/** »ñÈ¡Ìõ¼şÖĞµÄÎïÖÊµÄÁ¿*/
+		/** è·å–æ¡ä»¶ä¸­çš„ç‰©è´¨çš„é‡*/
 		public AdvNum getConditionMole(RMDatabase rmDatabase) throws AtomNameNotFoundException;
-		/** »ñÈ¡Ìõ¼şÖĞµÄÕû¸ö±íÏî*/
+		/** è·å–æ¡ä»¶ä¸­çš„æ•´ä¸ªè¡¨é¡¹*/
 		public Pair<Formula, Integer> getConditionItem();
 	}
 }
