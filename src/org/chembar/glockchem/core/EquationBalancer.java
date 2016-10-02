@@ -161,35 +161,29 @@ public class EquationBalancer {
 //		System.out.println(mat);
 		
 		// 判断是否有解：
-		// 最后一列必须全都是非零数
-		// 且每一行只能有2个非零数
+		// 除了最后一列，每一列都有且仅有一个正值
 		{
-			int numNonZero = 0;	// 非零数计数器
-			for (int i = 0; i < lines; ++i) {
-				for (int j = 0; j < cols; ++j) {
+			int numNonZero = 0;
+			for (int j = 0; j < cols - 1; ++j) {
+				for (int i = 0; i < lines; ++i) {
 					if (mtx[i][j] != 0) {
-						// 计数器增加
 						numNonZero++;
-					} else if (j == (cols-1)) {
-						// 到达行尾且为0，必为无解
-						// TODO: 无解处理
-						return false;
 					}
 				}
-				// 每行超出两个非零数
-				if (numNonZero > 2) {
+				if (numNonZero == 0 || numNonZero > 1) {
 					return false;
 				} else {
-					numNonZero = 0;	// 计数器清零
+					numNonZero = 0;
+					continue;
 				}
 			}
 		}
 		
 		// 提取矩阵有效系数
-		int[][] numResult = new int[lines][2];
-		for (int i = 0; i < lines; ++i) {
-			// cols-1: 舍弃最后一列
-			for (int j = 0; j < cols - 1; ++j) {
+		int[][] numResult = new int[cols-1][2];
+		for (int j = 0; j < cols - 1; ++j) {
+			int i;
+			for (i = 0; i < lines; ++i) {
 				if (mtx[i][j] != 0) {
 					numResult[i][0] = mtx[i][j];
 					break;
@@ -202,15 +196,30 @@ public class EquationBalancer {
 //			System.out.println(numResult[i][1]);
 		}
 		
+//		// 用作显示numResult
+//		{
+//			String strTemp = new String();
+//			for (int ln=0; ln<numResult.length; ln++) {
+//				for (int col1=0; col1<numResult[0].length; col1++) {
+//					strTemp += "[";
+//					strTemp += numResult[ln][col1];
+//					strTemp += "]";
+//				}
+//				strTemp += "\n";
+//			}
+//			
+//			System.out.println(strTemp);
+//		}
+		
 		// 得到左侧最小公倍数
 		int numGCD = numResult[0][0];
-		for (int i = 0; i < lines; ++i) {// 轮一遍
+		for (int i = 0; i < cols - 1; ++i) {// 轮一遍
 			numGCD = numGCD*numResult[i][0]/gcd(numResult[i][0],numGCD);
 		}
 		
 		// 全部放缩到最小公倍数
 		int scale = 1;
-		for (int i = 0; i < lines; ++i) {
+		for (int i = 0; i < cols - 1; ++i) {
 			scale = numGCD / numResult[i][0];
 			numResult[i][0] = numGCD;
 			numResult[i][1] *= scale;
@@ -218,7 +227,7 @@ public class EquationBalancer {
 		
 		// 输出结果
 //		System.out.print("配平系数：");
-		for (int i = 0; i < lines; ++i) {
+		for (int i = 0; i < col-1; ++i) {
 			if (i < numReactant) {
 				this.equInner.reactant.get(i).setR(numResult[i][1]);
 			} else {
