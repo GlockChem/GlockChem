@@ -130,7 +130,7 @@ public class EquationBalancer {
 		int[][] mtx = mat.matrix;
 		int[] pos = new int[lines];
 		int rank = 0;
-		for (int i = 0; i < cols; ++i) {
+		for (int i = 0; rank < lines && i < cols; ++i) {
 			if (mtx[rank][i] == 0) {
 				int u = rank;
 				while (u < lines && mtx[u][i] == 0)
