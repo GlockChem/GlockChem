@@ -1,48 +1,48 @@
-package org.chembar.glockchem.core;
+ï»¿package org.chembar.glockchem.core;
 
-/** AdvNum - ´øÎó²î¼ÆËãµÄË«¾«¶ÈÀàĞÍ
+/** AdvNum - å¸¦è¯¯å·®è®¡ç®—çš„åŒç²¾åº¦ç±»å‹
  * @author DuckSoft
  * @version 0.1
  */
 public class AdvNum {
-	// === ÄÚ²¿Êı¾İ ===
-	/** AdvNumµÄÄÚ²¿ÊıÖµ¡£
+	// === å†…éƒ¨æ•°æ® ===
+	/** AdvNumçš„å†…éƒ¨æ•°å€¼ã€‚
 	 * @see #numInner
 	 * @see #numMin
 	 * @see #numMax
 	 * */
 	double numInner;
-	/** AdvNumµÄ×î´óÖµ¡£
+	/** AdvNumçš„æœ€å¤§å€¼ã€‚
 	 * @see #numInner
 	 * @see #numMin
 	 * @see #numMax
 	 * */
 	double numMax;
-	/** AdvNumµÄ×îĞ¡Öµ¡£
+	/** AdvNumçš„æœ€å°å€¼ã€‚
 	 * @see #numInner
 	 * @see #numMin
 	 * @see #numMax
 	 * */
 	double numMin;
 	
-	// === ÀàĞÍ×ª»» ===
-	/** ½«AdvNum¶ÔÏó×ªÎªString
-	 * @return ËùµÃString
+	// === ç±»å‹è½¬æ¢ ===
+	/** å°†AdvNumå¯¹è±¡è½¬ä¸ºString
+	 * @return æ‰€å¾—String
 	 */
 	public String toString() {
 		return "{" + String.valueOf(this.numInner) + 
 				"; " + String.valueOf(this.numMin) + 
 				", " + String.valueOf(this.numMax) + "}";
 	}
-	/** ½«AdvNum¶ÔÏó×ªÎªdouble
-	 * @return AdvNum¶ÔÏóµÄÄÚ²¿ÊıÖµ{@link #numInner}
+	/** å°†AdvNumå¯¹è±¡è½¬ä¸ºdouble
+	 * @return AdvNumå¯¹è±¡çš„å†…éƒ¨æ•°å€¼{@link #numInner}
 	 */
 	public double toDouble() {
 		return this.numInner;
 	}
-	// === ¹¹Ôìº¯Êı ===
-	/** ¹¹Ôìº¯Êı
-	 * <p>¸Ã¹¹Ôìº¯Êı¿ÉÒÔ¹¹ÔìÒ»¸ö¿ÕµÄAdvNum¡£</p>
+	// === æ„é€ å‡½æ•° ===
+	/** æ„é€ å‡½æ•°
+	 * <p>è¯¥æ„é€ å‡½æ•°å¯ä»¥æ„é€ ä¸€ä¸ªç©ºçš„AdvNumã€‚</p>
 	 * @see #AdvNum()
 	 * @see #AdvNum(double)
 	 * @see #AdvNum(double, double)
@@ -50,9 +50,9 @@ public class AdvNum {
 	public AdvNum() {
 		super();
 	}
-	/** ¹¹Ôìº¯Êı
-	 * <p>¸Ã¹¹Ôìº¯Êı¿ÉÒÔ¹¹ÔìÄ³Ò»Ë«¾«¶ÈÖµµÄAdvNum¡£</p>
-	 * @param numIn ËùĞèĞ´ÈëËùµÃAdvNumÖĞµÄË«¾«¶ÈÖµ
+	/** æ„é€ å‡½æ•°
+	 * <p>è¯¥æ„é€ å‡½æ•°å¯ä»¥æ„é€ æŸä¸€åŒç²¾åº¦å€¼çš„AdvNumã€‚</p>
+	 * @param numIn æ‰€éœ€å†™å…¥æ‰€å¾—AdvNumä¸­çš„åŒç²¾åº¦å€¼
 	 * @see #AdvNum()
 	 * @see #AdvNum(double)
 	 * @see #AdvNum(double, double)
@@ -60,34 +60,34 @@ public class AdvNum {
 	public AdvNum(double numIn) {
 		this.numInner = this.numMax = this.numMin = numIn;
 	}
-	/** ¹¹Ôìº¯Êı
-	 * <p>¸Ã¹¹Ôìº¯Êı¿ÉÒÔ¹¹ÔìÒÔÄ³Ò»Ë«¾«¶ÈÊıÎªÖĞĞÄ²úÉúÎó²îµÄAdvNum¡£</p>
-	 * @param numCenter ËùĞèĞ´ÈëµÄÖĞĞÄÊıÖµ
-	 * @param numError £¨<b>Çë¸ø¶¨ÕıÖµ</b>£©ÎªÖĞĞÄÊıÖµÖ¸¶¨µÄÎó²îÊıÖµ
+	/** æ„é€ å‡½æ•°
+	 * <p>è¯¥æ„é€ å‡½æ•°å¯ä»¥æ„é€ ä»¥æŸä¸€åŒç²¾åº¦æ•°ä¸ºä¸­å¿ƒäº§ç”Ÿè¯¯å·®çš„AdvNumã€‚</p>
+	 * @param numCenter æ‰€éœ€å†™å…¥çš„ä¸­å¿ƒæ•°å€¼
+	 * @param numError ï¼ˆ<b>è¯·ç»™å®šæ­£å€¼</b>ï¼‰ä¸ºä¸­å¿ƒæ•°å€¼æŒ‡å®šçš„è¯¯å·®æ•°å€¼
 	 * @see #AdvNum()
 	 * @see #AdvNum(double)
 	 * @see #AdvNum(double, double)
 	 * @see #AdvNum(double, double, double)	 */ 
 	public AdvNum(double numCenter, double numError) {
-		// Îó²îÖµ±ØĞëÎª·Ç¸ºÊı
+		// è¯¯å·®å€¼å¿…é¡»ä¸ºéè´Ÿæ•°
 		assert(numError >= 0);
 		
 		this.numInner = numCenter;
 		this.numMin = numCenter - numError;
 		this.numMax = numCenter + numError;
 	}
-	/** ¹¹Ôìº¯Êı
-	 * <p>¸Ã¹¹Ôìº¯Êı¿ÉÒÔ°´ÓÃ»§µÄÏë·¨¹¹½¨AdvNum¡£</p>
-	 * <p><b>×¢Òâ×î´óÖµÎñ±ØÒª´óÓÚ×îĞ¡Öµ£¡</b></p>
-	 * @param numCenter ËùĞèĞ´ÈëµÄÖĞĞÄÊıÖµ
-	 * @param numInMin ÎªÖĞĞÄÊıÖµÖ¸¶¨µÄ×îĞ¡Öµ
-	 * @param numInMax ÎªÖĞĞÄÊıÖµÖ¸¶¨µÄ×î´óÖµ
+	/** æ„é€ å‡½æ•°
+	 * <p>è¯¥æ„é€ å‡½æ•°å¯ä»¥æŒ‰ç”¨æˆ·çš„æƒ³æ³•æ„å»ºAdvNumã€‚</p>
+	 * <p><b>æ³¨æ„æœ€å¤§å€¼åŠ¡å¿…è¦å¤§äºæœ€å°å€¼ï¼</b></p>
+	 * @param numCenter æ‰€éœ€å†™å…¥çš„ä¸­å¿ƒæ•°å€¼
+	 * @param numInMin ä¸ºä¸­å¿ƒæ•°å€¼æŒ‡å®šçš„æœ€å°å€¼
+	 * @param numInMax ä¸ºä¸­å¿ƒæ•°å€¼æŒ‡å®šçš„æœ€å¤§å€¼
 	 * @see #AdvNum()
 	 * @see #AdvNum(double)
 	 * @see #AdvNum(double, double)
 	 * @see #AdvNum(double, double, double)	 */ 
 	public AdvNum(double numCenter, double numInMin, double numInMax) {
-		// Îñ±Ø×î´óÖµ´óÓÚ×îĞ¡Öµ
+		// åŠ¡å¿…æœ€å¤§å€¼å¤§äºæœ€å°å€¼
 		assert(numInMin <= numInMax);
 		
 		this.numInner = numCenter;
@@ -95,7 +95,7 @@ public class AdvNum {
 		this.numMax = numInMax;
 	}
 	
-	// === »ù±¾ÔËËãº¯Êı ===
+	// === åŸºæœ¬è¿ç®—å‡½æ•° ===
 	public AdvNum add(AdvNum numIn) {
 		double numInner = this.numInner + numIn.numInner;
 		double numMin = this.numMin + numIn.numMin;
@@ -137,27 +137,27 @@ public class AdvNum {
 		return divide(new AdvNum(numIn));
 	}
 
-	// === ²Ù×÷º¯Êı ===
+	// === æ“ä½œå‡½æ•° ===
 	public AdvNum set(double numToSet) {
 		this.numInner = this.numMin = this.numMax = numToSet;
 		return this;
 	}
 	
-	/** »ñÈ¡AdvNumµÄÖĞĞÄ»¯Êı
-	 * <p>×¢Òâ¸Ã·½·¨½ö»ñÈ¡ÖĞĞÄ»¯Êı£¬²¢²»Ê¹µÃAdvNumÖĞĞÄ»¯¡£<br>
-	 * ÈôÒªÁîÄ³¸öAdvNumÖĞĞÄ»¯£¬Çë²Î¼û{@link #Centerize()}·½·¨¡£</p>
+	/** è·å–AdvNumçš„ä¸­å¿ƒåŒ–æ•°
+	 * <p>æ³¨æ„è¯¥æ–¹æ³•ä»…è·å–ä¸­å¿ƒåŒ–æ•°ï¼Œå¹¶ä¸ä½¿å¾—AdvNumä¸­å¿ƒåŒ–ã€‚<br>
+	 * è‹¥è¦ä»¤æŸä¸ªAdvNumä¸­å¿ƒåŒ–ï¼Œè¯·å‚è§{@link #Centerize()}æ–¹æ³•ã€‚</p>
 	 * @see #Centerize()
-	 * @return ÖĞĞÄ»¯Êı¡ª¡ª¼´¸ÃÊı×î´óÖµÓë×îĞ¡ÖµµÄÆ½¾ùÊı
+	 * @return ä¸­å¿ƒåŒ–æ•°â€”â€”å³è¯¥æ•°æœ€å¤§å€¼ä¸æœ€å°å€¼çš„å¹³å‡æ•°
 	 */
 	public double getCenterizedNumber() {
 		return (this.numMin + this.numMax) / 2;
 	}
 	
-	/** ÁîAdvNumÖĞĞÄ»¯
-	 * <p>±¾·½·¨¿ÉÁîAdvNumÖĞĞÄ»¯£¬¼´Ê¹ÆäÄÚ²¿Êı¾İ±äÎª¸ÃAdvNum×î´óÖµÓë×îĞ¡ÖµµÄÆ½¾ùÊı¡£<br>
-	 * Èô½öĞè»ñÈ¡Ä³AdvNumµÄÖĞĞÄ»¯Êı£¬Çë²Î¼û{@link #getCenterizedNumber()}·½·¨¡£</p>
+	/** ä»¤AdvNumä¸­å¿ƒåŒ–
+	 * <p>æœ¬æ–¹æ³•å¯ä»¤AdvNumä¸­å¿ƒåŒ–ï¼Œå³ä½¿å…¶å†…éƒ¨æ•°æ®å˜ä¸ºè¯¥AdvNumæœ€å¤§å€¼ä¸æœ€å°å€¼çš„å¹³å‡æ•°ã€‚<br>
+	 * è‹¥ä»…éœ€è·å–æŸAdvNumçš„ä¸­å¿ƒåŒ–æ•°ï¼Œè¯·å‚è§{@link #getCenterizedNumber()}æ–¹æ³•ã€‚</p>
 	 * @see #getCenterizedNumber()
-	 * @return ËùµÃAdvNum
+	 * @return æ‰€å¾—AdvNum
 	 */
 	public AdvNum Centerize() {
 		this.numInner = this.getCenterizedNumber();

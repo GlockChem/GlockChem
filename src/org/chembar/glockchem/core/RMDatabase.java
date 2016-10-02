@@ -1,9 +1,9 @@
-package org.chembar.glockchem.core;
+ï»¿package org.chembar.glockchem.core;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/** RMDatabase - ´øÎó²îµÄÔ­×ÓÁ¿Êı¾İ¿â
+/** RMDatabase - å¸¦è¯¯å·®çš„åŸå­é‡æ•°æ®åº“
  * @author DuckSoft
  * @version 0.1
  */
@@ -26,13 +26,13 @@ public final class RMDatabase {
 		}
 	}
 	
-	public RMDatabase() {// ¹¹Ôìº¯Êı
+	public RMDatabase() {// æ„é€ å‡½æ•°
 		for (int i=0; i<dataRMName.length; i++) {
 			this.RMData.put(dataRMName[i], new AdvNum(dataRMValue[i], dataRMError[i]));
 		}
 	}
 	
-	public final AdvNum queryAtom(String inAtom) throws AtomNameNotFoundException {// ²éÑ¯Ä³Ô­×ÓµÄÄ¦¶ûÖÊÁ¿
+	public final AdvNum queryAtom(String inAtom) throws AtomNameNotFoundException {// æŸ¥è¯¢æŸåŸå­çš„æ‘©å°”è´¨é‡
 		if (this.RMData.containsKey(inAtom)) {
 			return this.RMData.get(inAtom);
 		} else {
@@ -40,13 +40,13 @@ public final class RMDatabase {
 		}
 	}
 	
-	/** ²éÑ¯FormulaµÄÄ¦¶ûÖÊÁ¿
-	 * <p>ÔÚ²»ĞèÒªÎó²î·ÖÎöµÄ³¡ºÏ£¬¿ÉÒÔÊ¹ÓÃ{@link #queryMolarMassDouble(Formula)}Ìæ´ú±¾·½·¨¡£</p>
-	 * @param inFormula Óû²éÑ¯µÄFormula¶ÔÏó
-	 * @return AdvNumÀàĞÍ±íÊ¾µÄFormulaµÄÄ¦¶ûÖÊÁ¿£¨º¬Îó²î£©
+	/** æŸ¥è¯¢Formulaçš„æ‘©å°”è´¨é‡
+	 * <p>åœ¨ä¸éœ€è¦è¯¯å·®åˆ†æçš„åœºåˆï¼Œå¯ä»¥ä½¿ç”¨{@link #queryMolarMassDouble(Formula)}æ›¿ä»£æœ¬æ–¹æ³•ã€‚</p>
+	 * @param inFormula æ¬²æŸ¥è¯¢çš„Formulaå¯¹è±¡
+	 * @return AdvNumç±»å‹è¡¨ç¤ºçš„Formulaçš„æ‘©å°”è´¨é‡ï¼ˆå«è¯¯å·®ï¼‰
 	 * @throws AtomNameNotFoundException
 	 */
-	public final AdvNum queryMolarMass(Formula inFormula) throws AtomNameNotFoundException {// ²éÑ¯Ä³»¯Ñ§Ê½µÄÄ¦¶ûÖÊÁ¿
+	public final AdvNum queryMolarMass(Formula inFormula) throws AtomNameNotFoundException {// æŸ¥è¯¢æŸåŒ–å­¦å¼çš„æ‘©å°”è´¨é‡
 		AdvNum mass = new AdvNum();
 		
 		for (Map.Entry<String,Integer> entry : inFormula.mapAtomList.entrySet()) {
@@ -57,13 +57,13 @@ public final class RMDatabase {
 		return mass;
 	}
 	
-	/** ²éÑ¯FormulaµÄÄ¦¶ûÖÊÁ¿
-	 * <p>ÓÉÓÚ¸Ã·½·¨»áºöÂÔÔ­×ÓÁ¿±íÖĞµÄÎó²î£¬½¨ÒéÊ¹ÓÃ{@link #queryMolarMass(Formula)}Ìæ´úÒÔÈ¡µÃÍêÕûµÄÄ¦¶ûÖÊÁ¿ĞÅÏ¢¡£</p>
-	 * @param inFormula Óû²éÑ¯µÄFormula¶ÔÏó
-	 * @return doubleÀàĞÍ±íÊ¾µÄFormulaµÄÄ¦¶ûÖÊÁ¿
+	/** æŸ¥è¯¢Formulaçš„æ‘©å°”è´¨é‡
+	 * <p>ç”±äºè¯¥æ–¹æ³•ä¼šå¿½ç•¥åŸå­é‡è¡¨ä¸­çš„è¯¯å·®ï¼Œå»ºè®®ä½¿ç”¨{@link #queryMolarMass(Formula)}æ›¿ä»£ä»¥å–å¾—å®Œæ•´çš„æ‘©å°”è´¨é‡ä¿¡æ¯ã€‚</p>
+	 * @param inFormula æ¬²æŸ¥è¯¢çš„Formulaå¯¹è±¡
+	 * @return doubleç±»å‹è¡¨ç¤ºçš„Formulaçš„æ‘©å°”è´¨é‡
 	 * @throws AtomNameNotFoundException
 	 */
-	public final double queryMolarMassDouble(Formula inFormula) throws AtomNameNotFoundException {// ²éÑ¯Ä³»¯Ñ§Ê½µÄÄ¦¶ûÖÊÁ¿
+	public final double queryMolarMassDouble(Formula inFormula) throws AtomNameNotFoundException {// æŸ¥è¯¢æŸåŒ–å­¦å¼çš„æ‘©å°”è´¨é‡
 		double mass = 0;
 		
 		for (Map.Entry<String,Integer> entry : inFormula.mapAtomList.entrySet()) {

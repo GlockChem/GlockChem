@@ -1,29 +1,29 @@
-package org.chembar.glockchem.core;
+ï»¿package org.chembar.glockchem.core;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** »¯Ñ§Ê½³éÏó
+/** åŒ–å­¦å¼æŠ½è±¡
  * @author DuckSoft
  * @version 0.4 Stable
  */
 public class Formula {
 
-	/** »¯Ñ§Ê½Ô­Ê¼×Ö·û´®
-	 * <p>°üº¬¸ÃFormulaÀà³õÊ¼»¯Ê±´«ÈëµÄ±íÊ¾¸Ã»¯Ñ§Ê½µÄString¡£</p>
+	/** åŒ–å­¦å¼åŸå§‹å­—ç¬¦ä¸²
+	 * <p>åŒ…å«è¯¥Formulaç±»åˆå§‹åŒ–æ—¶ä¼ å…¥çš„è¡¨ç¤ºè¯¥åŒ–å­¦å¼çš„Stringã€‚</p>
 	 * @see #Formula(String)
 	 */
 	String strRaw;
-	/** »¯Ñ§Ê½Ô­×ÓÇåµ¥
-	 * <p>°üº¬´ÓFormula³õÊ¼»¯Ê±´«ÈëµÄStringÖĞ·ÖÎöµÃµ½µÄ¸Ã»¯Ñ§Ê½º¬ÓĞµÄËùÓĞÔ­×Ó¼°ÆäÊıÄ¿µÄÅä¶ÔµÄÁĞ±í¡£</p>
+	/** åŒ–å­¦å¼åŸå­æ¸…å•
+	 * <p>åŒ…å«ä»Formulaåˆå§‹åŒ–æ—¶ä¼ å…¥çš„Stringä¸­åˆ†æå¾—åˆ°çš„è¯¥åŒ–å­¦å¼å«æœ‰çš„æ‰€æœ‰åŸå­åŠå…¶æ•°ç›®çš„é…å¯¹çš„åˆ—è¡¨ã€‚</p>
 	 * @see #Formula(String)
 	 */
 	public Map<String,Integer> mapAtomList = new HashMap<String,Integer>();
 	
-	/** »ñÈ¡»¯Ñ§Ê½Ô­Ê¼×Ö·û´®
-	 * <p>»ñÈ¡°üº¬¸ÃFormulaÀà³õÊ¼»¯Ê±´«ÈëµÄ±íÊ¾¸Ã»¯Ñ§Ê½µÄString¡£</p>
+	/** è·å–åŒ–å­¦å¼åŸå§‹å­—ç¬¦ä¸²
+	 * <p>è·å–åŒ…å«è¯¥Formulaç±»åˆå§‹åŒ–æ—¶ä¼ å…¥çš„è¡¨ç¤ºè¯¥åŒ–å­¦å¼çš„Stringã€‚</p>
 	 * @see #strRaw
 	 * @see #Formula(String)
 	 */
@@ -34,7 +34,7 @@ public class Formula {
 	public String toString() {
 		return this.mapAtomList.toString();
 	}
-	// Òì³£Àà
+	// å¼‚å¸¸ç±»
 	public class InvalidFormulaException extends Exception {
 		private static final long serialVersionUID = 2L;
 		String formula;
@@ -48,9 +48,9 @@ public class Formula {
 		}
 	}
 	
-	/** ¹¹Ôìº¯Êı
-	 * <p>´Ó´«ÈëµÄ»¯Ñ§Ê½StringÖĞ¹¹½¨Formula¡£</p>
-	 * @param inFormula ±íÊ¾¸Ã»¯Ñ§Ê½µÄString
+	/** æ„é€ å‡½æ•°
+	 * <p>ä»ä¼ å…¥çš„åŒ–å­¦å¼Stringä¸­æ„å»ºFormulaã€‚</p>
+	 * @param inFormula è¡¨ç¤ºè¯¥åŒ–å­¦å¼çš„String
 	 * @see #strRaw
 	 * @throws InvalidFormulaException
 	 */
@@ -59,9 +59,9 @@ public class Formula {
 		this.parseFormula(inFormula, 1);
 	}
 	
-	/** ÁĞ±íºÏ²¢Ëã·¨
-	 * <p>½«´«ÈëµÄÔ­×ÓÁĞ±íºÏ²¢µ½¸ÃFormulaµÄÔ­×ÓÁĞ±í{@link #mapAtomList}ÖĞ¡£</p>
-	 * @param pairToInsert ½«±»ºÏ²¢µÄÔ­×ÓÁĞ±í
+	/** åˆ—è¡¨åˆå¹¶ç®—æ³•
+	 * <p>å°†ä¼ å…¥çš„åŸå­åˆ—è¡¨åˆå¹¶åˆ°è¯¥Formulaçš„åŸå­åˆ—è¡¨{@link #mapAtomList}ä¸­ã€‚</p>
+	 * @param pairToInsert å°†è¢«åˆå¹¶çš„åŸå­åˆ—è¡¨
 	 */
 	private void insertList(Pair<String,Integer> pairToInsert) {
 		int numTodo = 0;
@@ -74,40 +74,40 @@ public class Formula {
 		}
 	}
 	
-	/** »¯Ñ§Ê½·ÖÎöËã·¨
-	 * <p>·ÖÎö»¯Ñ§Ê½String¼°Æä×ÓString¡£</p>
-	 * @param inFormula Òª·ÖÎöµÄString
-	 * @param numMultiplier ¸Ã¶ÎStringÔ­×ÓÊıÇ°µÄÏµÊı
+	/** åŒ–å­¦å¼åˆ†æç®—æ³•
+	 * <p>åˆ†æåŒ–å­¦å¼StringåŠå…¶å­Stringã€‚</p>
+	 * @param inFormula è¦åˆ†æçš„String
+	 * @param numMultiplier è¯¥æ®µStringåŸå­æ•°å‰çš„ç³»æ•°
 	 * @throws InvalidFormulaException
 	 */
 	private void parseFormula(String inFormula, int numMultiplier) throws InvalidFormulaException {
-		Matcher sm;	// ÕıÔòÆ¥Åä½á¹û
+		Matcher sm;	// æ­£åˆ™åŒ¹é…ç»“æœ
 		
-		Pattern e = Pattern.compile("^([A-Z][a-z]*)(\\d*)"),	// Ô­×ÓÆ¥ÅäÕıÔò
-				f = Pattern.compile("\\*(\\d*)([^*]+)[\\*]??"),	// ¶Î·Ö¸ô·û"*"Æ¥Åä 
-				g = Pattern.compile("\\(([^\\*]*)\\)(\\d*)"),	// À¨ºÅÆ¥Åä#1
-				h = Pattern.compile("\\(([^\\*\\(]*)\\)(\\d*)");// À¨ºÅÆ¥Åä#2
+		Pattern e = Pattern.compile("^([A-Z][a-z]*)(\\d*)"),	// åŸå­åŒ¹é…æ­£åˆ™
+				f = Pattern.compile("\\*(\\d*)([^*]+)[\\*]??"),	// æ®µåˆ†éš”ç¬¦"*"åŒ¹é… 
+				g = Pattern.compile("\\(([^\\*]*)\\)(\\d*)"),	// æ‹¬å·åŒ¹é…#1
+				h = Pattern.compile("\\(([^\\*\\(]*)\\)(\\d*)");// æ‹¬å·åŒ¹é…#2
 		
 		while (!inFormula.isEmpty()) {
 			sm = e.matcher(inFormula);
-						// ÕÒÒ»ÛçÔ­×Ó 
-						// sm[1]: Ô­×ÓÃû³Æ
-						// sm[2]: Ô­×ÓÊıÁ¿(ÓĞ¿ÉÄÜÎª¿Õ°×)
-			if (sm.find()) {// Èô³É¹¦ÌáÈ¡³öÔ­×Ó
+						// æ‰¾ä¸€å¨åŸå­ 
+						// sm[1]: åŸå­åç§°
+						// sm[2]: åŸå­æ•°é‡(æœ‰å¯èƒ½ä¸ºç©ºç™½)
+			if (sm.find()) {// è‹¥æˆåŠŸæå–å‡ºåŸå­
 				int tempNum;
-				if(sm.group(2).isEmpty()) {// ÈôÃ»ÓĞÏÂ±ê 
-					tempNum = 1 * numMultiplier;	// Ä¬ÈÏÏÂ±êÎª1 
-				} else {// ÓĞÏÂ±ê
+				if(sm.group(2).isEmpty()) {// è‹¥æ²¡æœ‰ä¸‹æ ‡ 
+					tempNum = 1 * numMultiplier;	// é»˜è®¤ä¸‹æ ‡ä¸º1 
+				} else {// æœ‰ä¸‹æ ‡
 					tempNum = Integer.valueOf(sm.group(2)) * numMultiplier; 
 				}
 				
-				String tempStr = sm.group(1);	// ½»¸ø²åÈëËã·¨´¦Àí
+				String tempStr = sm.group(1);	// äº¤ç»™æ’å…¥ç®—æ³•å¤„ç†
 				this.insertList(new Pair<String,Integer>(tempStr, tempNum));
 				inFormula = inFormula.substring(sm.group(0).length());
-			} else if (inFormula.charAt(0) == '*') {	// ÓÖÀ´Ò»¶Î 
-				sm = f.matcher(inFormula);	// ÕÒ¶Î
-											// sm[1]: ¶Î³ËÊı
-											// sm[2]: ¶ÎÄÚÈİ
+			} else if (inFormula.charAt(0) == '*') {	// åˆæ¥ä¸€æ®µ 
+				sm = f.matcher(inFormula);	// æ‰¾æ®µ
+											// sm[1]: æ®µä¹˜æ•°
+											// sm[2]: æ®µå†…å®¹
 				if (sm.find()) {
 					int tempNum;
 					if (sm.group(1).isEmpty()) {
@@ -120,13 +120,13 @@ public class Formula {
 					String strTemp = sm.group(2);
 					inFormula = inFormula.substring(sm.group(0).length());
 					this.parseFormula(strTemp, tempNum);
-				} else {// ¿Õ¶ÎµÄ´¦Àí
-					//TODO: ¿Õ¶Î
+				} else {// ç©ºæ®µçš„å¤„ç†
+					//TODO: ç©ºæ®µ
 				}
 			} else if (inFormula.charAt(0) == '(') {
-				// TODO: À¨ºÅµÄ´¦Àí
+				// TODO: æ‹¬å·çš„å¤„ç†
 				
-				int intCounter = 0; // µÚÒ»´Î³öÏÖºó°ëÀ¨ºÅÇ° Ç°°ëÀ¨ºÅ³öÏÖµÄ´ÎÊı
+				int intCounter = 0; // ç¬¬ä¸€æ¬¡å‡ºç°ååŠæ‹¬å·å‰ å‰åŠæ‹¬å·å‡ºç°çš„æ¬¡æ•°
 				
 				for (char ch : inFormula.toCharArray()) {
 					if (intCounter > 2) {
@@ -139,7 +139,7 @@ public class Formula {
 					}
 				}
 				
-				if (intCounter == 1) {	// ½ö½ö³öÏÖÁËÒ»´Î£¬ËµÃ÷ÔÚÄÚ²ã 
+				if (intCounter == 1) {	// ä»…ä»…å‡ºç°äº†ä¸€æ¬¡ï¼Œè¯´æ˜åœ¨å†…å±‚ 
 					sm = h.matcher(inFormula);
 					sm.find();
 					
@@ -157,7 +157,7 @@ public class Formula {
 					} else {
 						//TODO: fucking
 					}
-				} else if (intCounter == 2) {	// ³öÏÖÁË²»Ö¹Ò»´Î£¬ËµÃ÷ÔÚÍâ²ã 
+				} else if (intCounter == 2) {	// å‡ºç°äº†ä¸æ­¢ä¸€æ¬¡ï¼Œè¯´æ˜åœ¨å¤–å±‚ 
 					sm = g.matcher(inFormula);
 					sm.find();
 					
@@ -176,7 +176,7 @@ public class Formula {
 					this.parseFormula(strTemp, tempNum);
 				}
 			} else {
-				throw new InvalidFormulaException("»¯Ñ§Ê½ÖĞ·¢ÏÖ·Ç·¨×Ö·û - " + inFormula.substring(0, 1));
+				throw new InvalidFormulaException("åŒ–å­¦å¼ä¸­å‘ç°éæ³•å­—ç¬¦ - " + inFormula.substring(0, 1));
 			}
 		}
 	}

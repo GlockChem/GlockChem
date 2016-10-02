@@ -1,10 +1,10 @@
-package org.chembar.glockchem.core;
+ï»¿package org.chembar.glockchem.core;
 
 /** Pair
  * @author DuckSoft
  *
- * @param <L> Pair×ó²àÀàĞÍ
- * @param <R> PairÓÒ²àÀàĞÍ
+ * @param <L> Pairå·¦ä¾§ç±»å‹
+ * @param <R> Pairå³ä¾§ç±»å‹
  * 
  */
 public class Pair<L,R> {

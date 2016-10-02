@@ -1,14 +1,16 @@
-package org.chembar.glockchem.ui;
+ï»¿package org.chembar.glockchem.ui;
 
-import org.chembar.glockchem.core.*;
+import org.chembar.glockchem.core.AdvNum;
+import org.chembar.glockchem.core.Equation;
+import org.chembar.glockchem.core.EquationCalculator;
 import org.chembar.glockchem.core.EquationCalculator.EquationCondition;
 import org.chembar.glockchem.core.EquationCalculator.EquationConditionMass;
 
 public class Startup {
 	public static void main(String[] args) throws Exception {
-		// ÒÑÊµÏÖ½çÃæÓëÊµÏÖ·ÖÀë
-		// ½øÒ»²½¼Æ»®ÖÐ
-		Equation aa = new Equation("2H2 + O2 ---> 2H2O");
+		// æ³¨æ„ä¸‹é¢çš„æ–¹ç¨‹å¼æ²¡é…å¹³
+		// å½“é…å¹³åŠŸèƒ½å®žçŽ°æ—¶æ‰å¯ä»¥è®¡ç®—å“¦
+		Equation aa = new Equation("H2 + O2 ---> H2O");
 		EquationCalculator calc = new EquationCalculator(aa);
 		EquationCondition condition = new EquationConditionMass(aa.reactant.get(0), new AdvNum(25.0));
 		

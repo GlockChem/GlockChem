@@ -1,2 +1,4 @@
 .settings/*
 bin/*
+/bin/
+.settings
