@@ -1,6 +1,8 @@
 package org.chembar.glockchem.ui;
 
-import org.chembar.glockchem.core.*;
+import org.chembar.glockchem.core.AdvNum;
+import org.chembar.glockchem.core.Equation;
+import org.chembar.glockchem.core.EquationCalculator;
 import org.chembar.glockchem.core.EquationCalculator.EquationCondition;
 import org.chembar.glockchem.core.EquationCalculator.EquationConditionMass;
 
