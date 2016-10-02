@@ -22,7 +22,7 @@ public class Equation {
 		for (Pair<Formula,Integer> pair : reactant) {
 			if (pair.getR() != 1) {
 				strTemp += String.valueOf(pair.getR());
-				strTemp += " ";
+//				strTemp += " ";
 			}
 			strTemp += pair.getL().getRawString();
 			strTemp += " + ";
@@ -33,7 +33,7 @@ public class Equation {
 		for (Pair<Formula,Integer> pair : product) {
 			if (pair.getR() != 1) {
 				strTemp += String.valueOf(pair.getR());
-				strTemp += " ";
+//				strTemp += " ";
 			}
 			strTemp += pair.getL().getRawString();
 			strTemp += " + ";
