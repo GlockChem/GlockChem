@@ -72,6 +72,8 @@ public class EquationBalancer {
 	 */
 	public Equation balanceGaussian() {
 		//TODO: 高斯消元算法
+		
+		
 		return null;
 	}
 }

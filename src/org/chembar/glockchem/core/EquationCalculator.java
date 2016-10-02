@@ -16,11 +16,31 @@ public final class EquationCalculator {
 	RMDatabase dbRM = new RMDatabase();
 	
 	/** 构造函数
-	 * <p>初始化一个化学方程式计算类</p>
+	 * <p>初始化一个化学方程式计算类。<br>
+	 * 注意：该方程式<b>必须平衡</b>（即方程式左右两端必须<b>遵循质量守恒定律</b>）。<br/>
+	 * 若方程式不平衡，程序会试图采用高斯消元法进行自动配平并用作计算。（该自动过程<b>不会影响到传入的Equation对象</b>）<br>
+	 * 若经过自动配平后仍无法平衡，程序会引发一个异常。</p>
 	 * @param equToCalculate 用于计算的{@link Equation}对象
+	 * @throws Exception 引发的异常
 	 */
-	public EquationCalculator(Equation equToCalculate) {
-		this.equInner = equToCalculate;
+	public EquationCalculator(Equation equToCalculate) throws Exception {
+		// 检查方程式是否已经平衡
+		EquationBalancer balancer = new EquationBalancer(equToCalculate);
+		
+		if (balancer.checkBalance() == true) {
+			// 已平衡则直接留用
+			this.equInner = equToCalculate;
+		} else {
+			// 未平衡，尝试使用高斯消元法配平
+			// 配平失败会返回null
+			this.equInner = balancer.balanceGaussian();
+			
+			if (this.equInner == null) {
+				// 失败了
+				throw new Exception("这方程式配不平，怎么算啦！吃屎啦您！");
+			}
+		}
+		
 	}
 	
 	/** 计算相应物质的质量
