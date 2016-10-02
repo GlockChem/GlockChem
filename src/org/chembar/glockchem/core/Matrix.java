@@ -43,12 +43,4 @@ public final class Matrix {
 		return strTemp;
 	}
 	
-	public final void swapLines(int ln1, int ln2) {
-		int[] lnTemp = this.matrix[ln1].clone();
-		
-		for (int i=0; i<this.matrix[0].length; i++) {
-			this.matrix[ln1][i] = this.matrix[ln2][i];
-			this.matrix[ln2][i] = lnTemp[i];
-		}
-	}
 }

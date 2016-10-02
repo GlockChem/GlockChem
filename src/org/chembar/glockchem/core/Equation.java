@@ -12,6 +12,37 @@ public class Equation {
 	/** 生成物列表*/
 	public List<Pair<Formula,Integer>> product = new ArrayList<Pair<Formula,Integer>>();
 	
+	public Equation() {
+		
+	}
+	
+	public String toString() {
+		String strTemp = new String();
+		
+		for (Pair<Formula,Integer> pair : reactant) {
+			if (pair.getR() != 1) {
+				strTemp += String.valueOf(pair.getR());
+				strTemp += " ";
+			}
+			strTemp += pair.getL().getRawString();
+			strTemp += " + ";
+		}
+		strTemp = strTemp.substring(0, strTemp.length()-3);
+		strTemp += " ---> ";
+		
+		for (Pair<Formula,Integer> pair : product) {
+			if (pair.getR() != 1) {
+				strTemp += String.valueOf(pair.getR());
+				strTemp += " ";
+			}
+			strTemp += pair.getL().getRawString();
+			strTemp += " + ";
+		}
+		strTemp = strTemp.substring(0, strTemp.length()-3);
+		return strTemp;
+	}
+	
+	
 	/** 以给定的含有有效格式的化学方程式字符串生成一个Equation对象。<br/>
 	 * <p>可接受的格式示例如下：
 	 * <li>2C + O2 = 2CO</li>
