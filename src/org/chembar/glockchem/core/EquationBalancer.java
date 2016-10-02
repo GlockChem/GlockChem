@@ -50,9 +50,12 @@ public class EquationBalancer {
 			}
 		}
 		
+//		System.out.println(atomReactant);
+//		System.out.println(atomProduct);
+		
 		for (Map.Entry<String,Integer> entry : atomReactant.entrySet()) {
 			if (atomProduct.containsKey(entry.getKey())) {
-				if (atomProduct.get(entry.getKey()) == entry.getValue()) {
+				if (atomProduct.get(entry.getKey()).intValue() == entry.getValue().intValue()) {
 					continue;
 				} else {
 					return false;
@@ -61,6 +64,8 @@ public class EquationBalancer {
 				return false;
 			}
 		}
+		
+
 		
 		return true;
 	}
@@ -201,6 +206,26 @@ public class EquationBalancer {
 //			System.out.println(numResult[i][1]);
 		}
 		
+	
+		// 得到左侧最小公倍数
+		int numGCD = numResult[0][0];
+		for (int i = 0; i < cols - 1; ++i) {// 轮一遍
+			numGCD = numGCD*numResult[i][0]/gcd(numResult[i][0],numGCD);
+		}
+		
+		// 全部放缩到最小公倍数
+		int scale = 1;
+		for (int i = 0; i < cols - 1; ++i) {
+			scale = numGCD / numResult[i][0];
+			numResult[i][0] = numGCD;
+			numResult[i][1] *= scale;
+			
+			// 检查：无解
+			if (numResult[i][1] == 0) {
+				return false;
+			}
+		}
+		
 //		// 用作显示numResult
 //		{
 //			String strTemp = new String();
@@ -216,32 +241,19 @@ public class EquationBalancer {
 //			System.out.println(strTemp);
 //		}
 		
-		// 得到左侧最小公倍数
-		int numGCD = numResult[0][0];
-		for (int i = 0; i < cols - 1; ++i) {// 轮一遍
-			numGCD = numGCD*numResult[i][0]/gcd(numResult[i][0],numGCD);
-		}
-		
-		// 全部放缩到最小公倍数
-		int scale = 1;
-		for (int i = 0; i < cols - 1; ++i) {
-			scale = numGCD / numResult[i][0];
-			numResult[i][0] = numGCD;
-			numResult[i][1] *= scale;
-		}
 		
 		// 输出结果
 //		System.out.print("配平系数：");
 		for (int i = 0; i < col-1; ++i) {
 			if (i < numReactant) {
-				this.equInner.reactant.get(i).setR(numResult[i][1]);
+				this.equInner.reactant.get(i).setR(Math.abs(numResult[i][1]));
 			} else {
-				this.equInner.product.get(i-numReactant).setR(numResult[i][1]);
+				this.equInner.product.get(i-numReactant).setR(Math.abs(numResult[i][1]));
 			}
 //			System.out.print(numResult[i][1]);
 //			System.out.print(", ");
 		}
-		this.equInner.product.get(numProduct-1).setR(numResult[0][1]);
+		this.equInner.product.get(numProduct-1).setR(numResult[0][0]);
 //		System.out.println(numResult[0][0]);
 		
 //		System.out.println(this.equInner);
