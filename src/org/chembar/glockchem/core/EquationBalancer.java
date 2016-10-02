@@ -1,8 +1,6 @@
 ﻿package org.chembar.glockchem.core;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**方程式配平类
@@ -86,30 +84,47 @@ public class EquationBalancer {
 		
 		// 得到行数与列数，用作以后建立矩阵
 		int cols = numReactant + numProduct;
-		int lines;
-		{
-			// 原子类型表
-			Map<String,Boolean> mapAtom = new HashMap<String,Boolean>();
-			
-			// 遍历反应物和生成物
-			for (Pair<Formula,Integer> pair : this.equInner.product) {
-				for (Map.Entry<String,Integer> entry : pair.getL().mapAtomList.entrySet()) {
-					mapAtom.put(entry.getKey(), true);
-				}
+		int lines = 0;
+		
+		// 原子类型表
+		Map<String,Integer> mapAtom = new HashMap<String,Integer>();
+		
+		// 遍历反应物和生成物
+		for (Pair<Formula,Integer> pair : this.equInner.reactant) {
+			for (Map.Entry<String,Integer> entry : pair.getL().mapAtomList.entrySet()) {
+				mapAtom.put(entry.getKey(), 1);
 			}
-			for (Pair<Formula,Integer> pair : this.equInner.reactant) {
-				for (Map.Entry<String,Integer> entry : pair.getL().mapAtomList.entrySet()) {
-					mapAtom.put(entry.getKey(), true);
-				}
+		}
+		for (Pair<Formula,Integer> pair : this.equInner.product) {
+			for (Map.Entry<String,Integer> entry : pair.getL().mapAtomList.entrySet()) {
+				mapAtom.put(entry.getKey(), 1);
 			}
-			
-			// 得到行数
-			lines = mapAtom.size();
 		}
 		
+		// 给原子类型编号，顺便得到总行数
+		for (Map.Entry<String,Integer> entry : mapAtom.entrySet()) {
+			entry.setValue(lines++);
+		}
+
 		// 建立矩阵对象
-		Matrix mat = new Matrix(cols, lines);
+		Matrix mat = new Matrix(lines, cols);
 		
+		// 填充矩阵
+		int col = 0;		// 当前的行号
+		for (Pair<Formula,Integer> pair : this.equInner.reactant) {
+			for (Map.Entry<String,Integer> atomPair : pair.getL().mapAtomList.entrySet()) {
+				mat.matrix[mapAtom.get(atomPair.getKey())][col] = atomPair.getValue();
+			}
+			col++;
+		}
+		for (Pair<Formula,Integer> pair : this.equInner.product) {
+			for (Map.Entry<String,Integer> atomPair : pair.getL().mapAtomList.entrySet()) {
+				mat.matrix[mapAtom.get(atomPair.getKey())][col] = atomPair.getValue();
+			}
+			col++;
+		}
+		
+		System.out.println(mat);
 		return null;
 	}
 	
