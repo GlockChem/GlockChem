@@ -119,7 +119,7 @@ public class EquationBalancer {
 		}
 		for (Pair<Formula,Integer> pair : this.equInner.product) {
 			for (Map.Entry<String,Integer> atomPair : pair.getL().mapAtomList.entrySet()) {
-				mat.matrix[mapAtom.get(atomPair.getKey())][col] = atomPair.getValue();
+				mat.matrix[mapAtom.get(atomPair.getKey())][col] = - atomPair.getValue();
 			}
 			col++;
 		}
