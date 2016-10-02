@@ -15,7 +15,7 @@ import org.chembar.glockchem.core.RMDatabase.AtomNameNotFoundException;
 public class ConsoleUI {
 	public static final String version = "0.01 Alpha";
 	
-	@SuppressWarnings("null")
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		Equation equation = null;
@@ -25,7 +25,10 @@ public class ConsoleUI {
 		int status = 0;
 		while(status != -1) {
 			switch (status) {
-				default: case -1: return;
+				default: case -1:{
+					scanner.close();
+					return;
+				}
 				case 0:	{
 					// Splash
 					System.out.println("Welcome to GlockChem CUI");
