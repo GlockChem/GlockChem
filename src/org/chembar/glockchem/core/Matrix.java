@@ -43,11 +43,4 @@ public final class Matrix {
 		return strTemp;
 	}
 	
-	public final void swapLines(int ln1, int ln2, int pos) {
-	    for (int i = pos; i < matrix[ln1].length; ++i) {
-	        int tmp = matrix[ln1][i];
-	        matrix[ln1][i] = matrix[ln2][i];
-	        matrix[ln2][i] = tmp;
-	    }
-	}
 }
