@@ -221,7 +221,7 @@ public class EquationBalancer {
 			numResult[i][1] *= scale;
 			
 			// 检查：无解
-			if (numResult[i][1] == 0) {
+			if (numResult[i][1] <= 0) {
 				return false;
 			}
 		}
@@ -237,18 +237,17 @@ public class EquationBalancer {
 //				}
 //				strTemp += "\n";
 //			}
-//			
-//			System.out.println(strTemp);
+////			System.out.println(strTemp);
 //		}
 		
 		
 		// 输出结果
-//		System.out.print("配平系数：");
+		System.out.print("配平系数：");
 		for (int i = 0; i < col-1; ++i) {
 			if (i < numReactant) {
-				this.equInner.reactant.get(i).setR(Math.abs(numResult[i][1]));
+				this.equInner.reactant.get(i).setR(numResult[i][1]);
 			} else {
-				this.equInner.product.get(i-numReactant).setR(Math.abs(numResult[i][1]));
+				this.equInner.product.get(i-numReactant).setR(numResult[i][1]);
 			}
 //			System.out.print(numResult[i][1]);
 //			System.out.print(", ");
