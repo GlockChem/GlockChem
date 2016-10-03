@@ -13,7 +13,14 @@ import org.chembar.glockchem.core.Pair;
 import org.chembar.glockchem.core.RMDatabase.AtomNameNotFoundException;
 
 public class ConsoleUI {
-	public static final String version = "0.01 Alpha";
+	public static final String version = "0.01 Beta";
+	
+	// 显示AdvNum
+	private static void showResult(AdvNum result) {
+		System.out.print(result.toDouble());
+		System.out.println("\n    绝对误差: (-" + result.getErrorMin() + ", +" + result.getErrorMax() + ")\n");
+		return;
+	}
 	
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -126,6 +133,7 @@ public class ConsoleUI {
 					System.out.println("请输入给定条件的质量，然后按回车键：");
 					double numCondition = scanner.nextDouble();
 					
+					
 					EquationConditionMass condition;
 					if (numEnter < numReactant) {
 						condition = new EquationConditionMass(equation.reactant.get(numEnter), new AdvNum(numCondition));
@@ -142,9 +150,9 @@ public class ConsoleUI {
 					}
 					for (Pair<Formula, Integer> pair : equation.reactant) {
 						System.out.print(pair.getL().getRawString());
-						System.out.print(":\n ");
+						System.out.print(": ");
 						try {
-							System.out.println(calc.calcMass(condition, pair));
+							showResult(calc.calcMass(condition, pair));
 						} catch (AtomNameNotFoundException e) {
 							System.out.println("发生错误：未知原子：" + e.getAtom());
 							continue;
@@ -153,9 +161,9 @@ public class ConsoleUI {
 					
 					for (Pair<Formula, Integer> pair : equation.product) {
 						System.out.print(pair.getL().getRawString());
-						System.out.print(":\n ");
+						System.out.print(": ");
 						try {
-							System.out.println(calc.calcMass(condition, pair));
+							showResult(calc.calcMass(condition, pair));
 						} catch (AtomNameNotFoundException e) {
 							System.out.println("发生错误：未知原子：" + e.getAtom());
 							continue;

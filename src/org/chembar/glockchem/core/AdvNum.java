@@ -163,4 +163,24 @@ public class AdvNum {
 		this.numInner = this.getCenterizedNumber();
 		return this;
 	}
+	
+	public double getNumMin() {
+		return this.numMin;
+	}
+	
+	public double getNumMax() {
+		return this.numMax;
+	}
+	
+	public double getErrorWidth() {
+		return this.numMax - this.numMin;
+	}
+	
+	public double getErrorMin() {
+		return this.numInner - this.numMin;
+	}
+	
+	public double getErrorMax() {
+		return this.numMax - this.numInner;
+	}
 }
