@@ -192,7 +192,7 @@ public class AwtUI extends Frame{
 		System.exit(0);
 	}
 	private void init(){
-		window = new AwtUI("GlockChem GUI - v." + ConsoleUI.version);
+		window = new AwtUI("GlockChem GUI - v" + ConsoleUI.version);
 		init1();
 	}
 	private void init1(){
@@ -200,7 +200,7 @@ public class AwtUI extends Frame{
 		a.addActionListener(bbb1);
 	}
 	public static void main(String args[]) {
-		window = new AwtUI("GlockChem GUI - v." + ConsoleUI.version);
+		window = new AwtUI("GlockChem GUI - v" + ConsoleUI.version);
 		window.init1();
 	}
 }

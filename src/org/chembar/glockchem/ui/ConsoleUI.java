@@ -1,4 +1,4 @@
-package org.chembar.glockchem.ui;
+﻿package org.chembar.glockchem.ui;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,7 +13,7 @@ import org.chembar.glockchem.core.Pair;
 import org.chembar.glockchem.core.RMDatabase.AtomNameNotFoundException;
 
 public class ConsoleUI {
-	public static final String version = "0.01 Beta";
+	public static final String version = "0.02 Alpha";
 	
 	// 显示AdvNum
 	private static void showResult(AdvNum result) {
