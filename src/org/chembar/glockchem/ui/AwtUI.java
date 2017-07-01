@@ -129,7 +129,7 @@ public class AwtUI extends Frame{
 		} catch (Exception e) {
 			cal("给定质量无效");
 		}
-		EquationConditionMass condition = new EquationConditionMass(equation.reactant.get(1), new AdvNum(numCondition));
+		EquationConditionMass condition = null;
 		pass = ch.getSelectedItem();
 		boolean flag = true;
 		for (int i = 0; i < equation.reactant.size(); i++){
@@ -172,6 +172,8 @@ public class AwtUI extends Frame{
 					} catch (AtomNameNotFoundException e) {
 						cal("发生错误：未知原子：" + e.getAtom());
 					}
+					add(new Label(pass.substring(0)));
+					
 				}	
 				add(d = new Button ("退出"));
 				add(a = new Button ("新公式"));
