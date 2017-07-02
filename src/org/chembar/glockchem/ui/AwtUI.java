@@ -1,6 +1,7 @@
 package org.chembar.glockchem.ui;
 
 import java.awt.*;
+import java.awt.datatransfer.*;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -14,14 +15,14 @@ import org.chembar.glockchem.core.EquationCalculator.EquationConditionMass;
 import org.chembar.glockchem.core.RMDatabase.AtomNameNotFoundException;
 
 public class AwtUI extends Frame{
-	private Button a,b,c,d;
+	private Button a,b,c,d,f,f1;
 	public static AwtUI window;
 	Equation equation = null;
 	EquationCalculator calc = null;
 	EquationBalancer balance;
 	bbb bbb1;
 	TextField t;
-	String pass;
+	String pass,result;
 	Choice ch;
 	public AwtUI(String str) {
 		super(str);
@@ -50,7 +51,13 @@ public class AwtUI extends Frame{
 			 if(e.getSource()==d){
 				 exit();
 			 }
-			 requestFocus();
+			 if(e.getSource()==f){
+				 cp2cb(equation.toString());
+			 }
+			 if(e.getSource()==f1){
+				 cp2cb(result);
+				 result = "";
+			 }
 		  }
 	}
 	private void start(String str) {
@@ -63,6 +70,8 @@ public class AwtUI extends Frame{
 		b.addActionListener(bbb1);
 		t.addActionListener(bbb1);
 		setVisible(true);
+		t.selectAll();
+		t.requestFocus();
 	}
 	private void input() {
 		String strInput = t.getText();
@@ -73,6 +82,7 @@ public class AwtUI extends Frame{
 			equation = new Equation(strInput);
 		} catch (Exception e) {
 			start("分析错误：" + e.getMessage());
+			return;
 		}
 		bal("方程式读入成功。");
 	}
@@ -113,11 +123,15 @@ public class AwtUI extends Frame{
 			ch.add(pair.getL().getRawString());
 		}
 		add(ch);
+		ch.requestFocus();
 		add(new Label("请输入给定条件的质量"));
-		add(t = new TextField("输入质量"));
+		add(t = new TextField(""));
 		add(c = new Button("确定"));
+		add(f = new Button ("复制公式"));
+		f.addActionListener(bbb1);
 		c.addActionListener(bbb1);
 		setVisible(true);
+		t.selectAll();
 	}
 	
 	private void fin() {
@@ -128,8 +142,9 @@ public class AwtUI extends Frame{
 		numCondition = Double.parseDouble(t.getText());
 		} catch (Exception e) {
 			cal("给定质量无效");
+			return;
 		}
-		EquationConditionMass condition = null;
+		EquationConditionMass condition = new EquationConditionMass(equation.reactant.get(0), new AdvNum(numCondition));
 		pass = ch.getSelectedItem();
 		boolean flag = true;
 		for (int i = 0; i < equation.reactant.size(); i++){
@@ -152,6 +167,7 @@ public class AwtUI extends Frame{
 				calc = new EquationCalculator(equation);
 				add(new Label(equation.toString()));
 				add(new Label(ch.getSelectedItem() + ": " +  t.getText()));
+				result = "";
 				for (Pair<Formula, Integer> pair : equation.reactant) {
 					pass = pair.getL().getRawString() + ": ";
 					try {
@@ -160,8 +176,10 @@ public class AwtUI extends Frame{
 								"-" + String.format("%.2f", calc.calcMass(condition, pair).getErrorMin());
 					} catch (AtomNameNotFoundException e) {
 						cal("发生错误：未知原子：" + e.getAtom());
+						return;
 					}
 					add(new Label(pass.substring(0)));
+					result += pass + "\n";
 				}
 				for (Pair<Formula, Integer> pair : equation.product) {
 					pass = pair.getL().getRawString() + ": ";
@@ -171,18 +189,22 @@ public class AwtUI extends Frame{
 								"-" + String.format("%.2f", calc.calcMass(condition, pair).getErrorMin());
 					} catch (AtomNameNotFoundException e) {
 						cal("发生错误：未知原子：" + e.getAtom());
+						return;
 					}
 					add(new Label(pass.substring(0)));
-					
+					result += pass + "\n";
 				}	
 				add(d = new Button ("退出"));
 				add(a = new Button ("新公式"));
-				pass = "";
+				add(f1 = new Button ("复制计算结果"));
+				pass = "请输入方程式";
 				d.addActionListener(bbb1);
 				a.addActionListener(bbb1);
+				f1.addActionListener(bbb1);
 				setVisible(true);
 			} catch (Exception e1) {
 				start("未知错误2");
+				return;
 			}
 		}
 		
@@ -193,6 +215,12 @@ public class AwtUI extends Frame{
 		dispose();
 		System.exit(0);
 	}
+	public static void cp2cb(String writeMe) {  
+		Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();  
+		Transferable tText = new StringSelection(writeMe);  
+		clip.setContents(tText, null);  
+		} 
+
 	private void init(){
 		window = new AwtUI("GlockChem GUI - v" + ConsoleUI.version);
 		init1();
