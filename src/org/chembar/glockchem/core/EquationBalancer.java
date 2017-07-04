@@ -242,7 +242,7 @@ public class EquationBalancer {
 		
 		
 		// 输出结果
-		System.out.print("配平系数：");
+//		System.out.print("配平系数：");
 		for (int i = 0; i < col-1; ++i) {
 			if (i < numReactant) {
 				this.equInner.reactant.get(i).setR(numResult[i][1]);
