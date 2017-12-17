@@ -121,7 +121,7 @@ public class Formula {
 					inFormula = inFormula.substring(sm.group(0).length());
 					this.parseFormula(strTemp, tempNum);
 				} else {// 空段的处理
-					//TODO: 空段
+					throw new InvalidFormulaException("出现空段");
 				}
 			} else if (inFormula.charAt(0) == '(') {
 				// TODO: 括号的处理
